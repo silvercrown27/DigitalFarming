@@ -1,0 +1,67 @@
+import matplotlib.pyplot as plt
+import os, warnings
+import pandas as pd
+import numpy as np
+
+import keras
+from keras import layers
+import tensorflow as tf
+from custom_image_from_dataset import custom_image_dataset_from_dir_pdd
+
+
+def convert_to_float(image, label):
+    image = tf.image.convert_image_dtype(image, dtype=tf.float32)
+    label = tf.cast(label, dtype=tf.float32)
+    return image, label
+
+
+def set_seed(seed=19893):
+    np.random.seed(seed)
+    tf.random.set_seed(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    os.environ["TF_DETERMINISTIC_OPS"] = "1"
+
+
+set_seed()
+plt.rc("figure", autolayout=True)
+plt.rc("axes", labelweight="bold", labelsize="large", titleweight="bold", titlesize=16, titlepad=10)
+plt.rc("image", cmap="magma")
+warnings.filterwarnings("ignore")
+AUTOTUNE = tf.data.experimental.AUTOTUNE
+
+pre_trained_model = 'C:/Users/USER/Documents/models/cv-course-models/cv-course-models/vgg16-pretrained-base'
+train_data_path = "C:/Users/USER/Documents/datasets/plant disease recognition dataset/Train/Train/plants.csv"
+train_image_path = "C:/Users/USER/Documents/datasets/plant disease recognition dataset/Train/Train"
+test_data_path = "C:/Users/USER/Documents/datasets/plant disease recognition dataset/Train/Train/plants.csv"
+test_image_path = "C:/Users/USER/Documents/datasets/plant disease recognition dataset/Train/Train"
+
+train_, test_ = custom_image_dataset_from_dir_pdd(train_data_path, train_image_path, test_data_path, test_image_path)
+
+
+train_ = (train_.map(convert_to_float).cache().prefetch(buffer_size=AUTOTUNE))
+test_ = (test_.map(convert_to_float).cache().prefetch(buffer_size=AUTOTUNE))
+
+pretrained_base = tf.keras.models.load_model(pre_trained_model)
+pretrained_base.trainable = False
+
+print("Beginning training of model...")
+model = keras.Sequential([
+    pretrained_base,
+    layers.Flatten(),
+    layers.Dense(64, activation='relu'),
+    layers.Dense(384, activation='relu'),
+    layers.Dense(64, activation='relu'),
+    layers.Dense(1, activation='sigmoid'),
+])
+print("Done training of model...")
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['binary_accuracy'])
+
+history = model.fit(train_, validation_data=test_, epochs=5, verbose=2)
+history_frame = pd.DataFrame(history.history)
+history_frame.loc[:, ['loss', 'val_loss']].plot()
+history_frame.loc[:, ['binary_accuracy', 'val_binary_accuracy']].plot()
+
+save_dir = "C:/Users/USER/Documents/models"
+os.makedirs(save_dir, exist_ok=True)
+model.save(os.path.join(save_dir, "plant_disease_detection_model.h5"))
+plt.show()
