@@ -2,31 +2,29 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <title>Agritect - AI Disease Detection</title>
 
-    <link rel="icon" href="assets/images/fav.png" type="image/png">
+    {% load static %}
+    <link rel="icon" href="{% static 'assets/images/fav.png' %}" type="image/png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
 
-    <title>Agritect - AI Disease Detection</title>
-
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/animated.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animated.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
 </head>
 
 <body>
@@ -53,15 +51,15 @@
                         <!-- ***** Logo Start ***** -->
                         <div class="row align-items-center">
                             <a href="index.html" class="logo col-md-3">
-                                <img src="assets/images/logo.png" alt="Agricultural AI">
+                                <img src="{% static 'assets/images/logo.png' %}" alt="Agricultural AI">
                             </a>
                             <!-- ***** Logo End ***** -->
                             <!-- ***** Menu Start ***** -->
-                            <ul class="nav col-md-5 d-flex flex-r">
+                            <ul class="nav col-md-5">
+                                <li><a href="#" class="active">Home</a></li>
+                                <li><a href="#" class="">Services</a></li>
                                 <li><a href="#" class="">Contact Us</a></li>
                                 <li><a href="#" class="">About</a></li>
-                                <li><a href="#" class="">Services</a></li>
-                                <li><a href="#" class="active">Home</a></li>
                                 <li></li>
                             </ul>
                             <ul class="nav col-md-4 d-flex flex-r">
@@ -72,10 +70,11 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
                         <a class='menu-trigger'>
                             <span>Menu</span>
                         </a>
+                        </div>
+
                         <!-- ***** Menu End ***** -->
                     </nav>
                 </div>
@@ -87,12 +86,12 @@
     <div class="main-banner wow fadeIn" id="top">
         <div class="container">
             <div class="col-lg-12">
-                <h2>Get Started With AI Agriculture</h2>
+                <h2 style="color: cornsilk;">Get Started With AI Agriculture</h2>
             </div>
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
-                        <div class="col-lg-6 align-self-center mt-5">
+                        <div class="col-lg-6 align-self-center">
                             <div class="left-content show-up header-text wow fadeInLeft" data-wow-duration="1s"
                                 data-wow-delay="1s">
                                 <div class="row">
@@ -112,7 +111,7 @@
                         </div>
                         <div class="col-lg-6 justify-content-center">
                             <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
-                                <img src="assets/images/agriculture-banner.png" alt="Agriculture Banner">
+                                <img src="{% static 'assets/images/about-bg.png' %}" style="width: 100%" alt="Agriculture Banner">
                             </div>
                         </div>
                     </div>
@@ -127,7 +126,7 @@
                 <div class="col-lg-6 align-self-center">
                     <div class="section-heading">
                         <h4>About <em style="color: springgreen;">Our Mission</em> &amp; Expertise</h4>
-                        <img src="assets/images/heading-line-dec.png" alt="Heading Line">
+                        <img src="{% static 'assets/images/heading-line-dec.png' %}" alt="Heading Line">
                         <p>Welcome to AI Agriculture, where innovation meets cultivation. Our mission is to
                             revolutionize farming through cutting-edge AI technology and expert insights.</p>
                     </div>
@@ -172,7 +171,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="right-image">
-                        <img src="assets/images/fav.pg" alt="About Right Image">
+                        <img src="{% static 'assets/images/fav.png' %}" alt="About Right Image">
                     </div>
                 </div>
             </div>
@@ -185,7 +184,7 @@
                 <div class="col-lg-8 offset-lg-2">
                     <div class="section-heading  wow fadeInDown" data-wow-duration="1s" data-wow-delay="0.5s">
                         <h4>Our AI-powered Services & Features</h4>
-                        <img src="assets/images/heading-line-dec.png" alt="Heading Line">
+                        <img src="{% static 'assets/images/heading-line-dec.png' %}" alt="Heading Line">
                         <p>Empowering farmers with cutting-edge AI technology and agricultural insights.</p>
                     </div>
                 </div>
@@ -237,79 +236,107 @@
             </div>
         </div>
     </div>
+
     <!-- Contact Section -->
-    <section id="contact" class="contact section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 align-self-center">
-                    <div class="section-heading">
-                        <h4>Contact <em>Us</em></h4>
-                        <img src="assets/images/heading-line-dec.png" alt="Heading Line">
-                        <p>Feel free to reach out to us for any inquiries or feedback.</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="contact-info">
-                                <div class="info-item">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <div class="info-details">
-                                        <h5>Location</h5>
-                                        <p>Nairobi, Kenya</p>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <!-- Content for col-md-6 text-center mb-5 (if any) -->
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Get in touch</h3>
+                                <div id="form-message-warning" class="mb-4"></div>
+                                <div id="form-message-success" class="mb-4">
+                                    Your message was sent, thank you!
+                                </div>
+                                <form method="POST" id="contactForm" name="contactForm" class="contactForm" novalidate="novalidate">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Full Name</label>
+                                                <input type="text" class="form-control" name="name" id="name" placeholder="Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="label" for="email">Email Address</label>
+                                                <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="subject">Subject</label>
+                                                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="#">Message</label>
+                                                <textarea name="message" class="form-control" id="message" cols="30" rows="4" placeholder="Message"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input type="submit" value="Send Message" class="btn btn-primary">
+                                                <div class="submitting"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
+                            <div class="info-wrap bg-primary w-100 p-md-5 p-4">
+                                <h3>Let's get in touch</h3>
+                                <p class="mb-4">We're open for any suggestion or just to have a chat</p>
+                                <div class="dbox w-100 d-flex align-items-start">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-map-marker"></span>
+                                    </div>
+                                    <div class="text pl-3">
+                                        <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
                                     </div>
                                 </div>
-                                <div class="info-item">
-                                    <i class="fas fa-phone"></i>
-                                    <div class="info-details">
-                                        <h5>Phone Number</h5>
-                                        <p>(123) 456-7890</p>
+                                <div class="dbox w-100 d-flex align-items-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-phone"></span>
+                                    </div>
+                                    <div class="text pl-3">
+                                        <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
                                     </div>
                                 </div>
-                                <div class="info-item">
-                                    <i class="fas fa-envelope"></i>
-                                    <div class="info-details">
-                                        <h5>Email Address</h5>
-                                        <p>info@website.com</p>
+                                <div class="dbox w-100 d-flex align-items-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-paper-plane"></span>
+                                    </div>
+                                    <div class="text pl-3">
+                                        <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
                                     </div>
                                 </div>
-                                <div class="info-item">
-                                    <i class="fas fa-globe"></i>
-                                    <div class="info-details">
-                                        <h5>Website</h5>
-                                        <p>info@example.com</p>
+                                <div class="dbox w-100 d-flex align-items-center">
+                                    <div class="icon d-flex align-items-center justify-content-center">
+                                        <span class="fa fa-globe"></span>
+                                    </div>
+                                    <div class="text pl-3">
+                                        <p><span>Website</span> <a href="#">yoursite.com</a></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="contact-form">
-                        <div class="section-heading">
-                            <h4>Get In <em>Touch</em></h4>
-                            <img src="assets/images/heading-line-dec.png" alt="Heading Line">
-                        </div>
-                        <form>
-                            <div class="form-group">
-                                <input type="email" class="form-control form-control-lg" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" placeholder="Enter email" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control form-control-lg" id="exampleInputName"
-                                    placeholder="Your Name" required>
-                            </div>
-                            <div class="form-group">
-                                <textarea name="contact-message" id="" cols="30" rows="7"
-                                    class="form-control form-control-lg" placeholder="Message"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block btn-lg mt-3">Send Message</button>
-                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
+    </div>
+</section>
+<!-- Contact Section -->
 
 
     <footer id="newsletter">
@@ -375,7 +402,7 @@
                     <div class="footer-widget">
                         <h4>About Our Company</h4>
                         <div class="logo">
-                            <img src="assets/images/white-logo.png" style="width: 80%;" alt="">
+                            <img src="{% static 'assets/images/white-logo.png' %}" style="width: 80%;" alt="">
                         </div>
                         <p>Welcome to AI Agriculture, where innovation meets cultivation. Our mission is to
                             revolutionize farming through cutting-edge AI technology and expert insights.</p>
@@ -391,13 +418,13 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/animation.js"></script>
-    <script src="assets/js/imagesloaded.js"></script>
-    <script src="assets/js/popup.js"></script>
-    <script src="assets/js/custom.js"></script>
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+    <script src="{% static 'assets/js/animation.js' %}"></script>
+    <script src="{% static 'assets/js/imagesloaded.js' %}"></script>
+    <script src="{% static 'assets/js/popup.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
 </body>
 
 </html>
