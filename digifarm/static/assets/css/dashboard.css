@@ -1,0 +1,33 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #091E3E;
+    color: white;
+    padding-top: 20px;
+}
+.navbar ul {
+    list-style: none;
+    padding: 0;
+}
+.navbar li {
+    margin-bottom: 15px;
+}
+.navbar a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    gap: 1rem;
+    padding: 10px;
+}
+
+.navlink{
+    display: flex;
+    gap: 1rem;
+}
+
+#form{
+    margin-left: 250px;
+}

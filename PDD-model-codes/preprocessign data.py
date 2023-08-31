@@ -1,25 +1,12 @@
-import warnings, os
-
-import numpy as np
+import matplotlib.pyplot as plt
+import os, warnings
 import pandas as pd
-import tensorflow as tf
+import numpy as np
 
 import keras
 from keras import layers
-from keras.models import load_model
-
-import matplotlib.pyplot as plt
-from custom_functions import custom_image_dataset_from_dir_pdd
-
-
-def create_dataset(file_path):
-    data = []
-    for root, directories, files in os.walk(file_path):
-        dir_name = root.split('/')[-1]
-        for file in files:
-            file_path = os.path.join(dir_name, file)
-            data.append([file_path, dir_name])
-    return data
+import tensorflow as tf
+from keras.utils import image_dataset_from_directory as idf
 
 
 def convert_to_float(image, label):
@@ -42,57 +29,43 @@ plt.rc("image", cmap="magma")
 warnings.filterwarnings("ignore")
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 
-image_paths = "C:/Users/USER/Documents/datasets/plant disease datasets/Image Data base/Image Data base/"
+
 pre_trained_model = 'C:/Users/USER/Documents/models/cv-course-models/cv-course-models/vgg16-pretrained-base'
+train_data_path = "C:/Users/USER/Documents/datasets/plant disease recognition dataset/Train/Train/plants.csv"
+train_image_path = "C:/Users/USER/Documents/datasets/plant disease recognition dataset/Train/Train/"
+test_data_path = "C:/Users/USER/Documents/datasets/plant disease recognition dataset/Train/Train/plants.csv"
+test_image_path = "C:/Users/USER/Documents/datasets/plant disease recognition dataset/Train/Train"
 
-df = create_dataset(image_paths)
-df = np.array(df)
 
-dataset = pd.DataFrame()
-dataset['image_path'] = df[:, 0]
-dataset['labels'] = df[:, 1]
-output_csv = 'pdd_dataset.csv'
-dataset.to_csv(output_csv, index=False)
+train_ = idf(train_image_path, shuffle=True, batch_size=128, interpolation="nearest", seed=101, image_size=(128, 128))
+valid_ = idf(test_image_path, shuffle=True, batch_size=128, interpolation="nearest", seed=101, image_size=(128, 128))
 
-data, label_mapping_df = custom_image_dataset_from_dir_pdd('pdd_dataset.csv', image_paths)
-ds_train = (data.map(convert_to_float).prefetch(buffer_size=AUTOTUNE))
+train_ = (train_.map(convert_to_float).cache().prefetch(buffer_size=AUTOTUNE))
+valid_ = (valid_.map(convert_to_float).cache().prefetch(buffer_size=AUTOTUNE))
 
-pre_trained_base = load_model(pre_trained_model)
-pre_trained_base.trainable = False
+pretrained_base = keras.models.load_model(pre_trained_model)
+pretrained_base.trainable = False
 
 model = keras.Sequential([
-    pre_trained_base,
-
-    layers.RandomRotation('horizontal'),
-    layers.RandomContrast(0.5),
-    layers.RandomTranslation(),
-    layers.Conv2D(filters=64, kernel_size=5, activation='relu', padding='same', input_shape=[128, 128, 3]),
-    layers.MaxPool2D(),
-
-    layers.Conv2D(filters=128, kernel_size=3, activation="relu", padding='same'),
+    pretrained_base,
+    layers.Conv2D(filters=64, kernel_size=3, activation='relu', padding='same', input_shape=[128, 128, 3]),
     layers.MaxPool2D(),
 
     layers.Conv2D(filters=128, kernel_size=3, activation="relu", padding='same'),
     layers.MaxPool2D(),
 
     layers.Flatten(),
-    layers.Dense(units=6, activation="relu"),
-    layers.Dense(units=len(label_mapping_df), activation="softmax"),  # Use softmax for multi-class classification
+    layers.Dense(units=64, activation="relu"),
+    layers.Dense(units=3, activation="softmax"),
 ])
+
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-history = model.fit(ds_train, epochs=30, verbose=2)
 
-# Convert encoded labels back to original categorical values
-# encoded_labels = np.arange(len(label_mapping_df))
-# decoded_labels = label_mapping_df['Categorical_Value'].values
-# Assuming you have some test data
-# test_predictions = model.predict(test_data)  # Replace with your test data
-#
-# # Convert predicted encoded labels to original categorical values
-# predicted_labels = np.argmax(test_predictions, axis=1)
-# predicted_categorical_labels = [decoded_labels[pred_label] for pred_label in predicted_labels]
+history = model.fit(train_, validation_data=valid_, epochs=10, verbose=2)
+print("Done training of model...")
 
-decoded_output_csv = 'decoded_values.csv'
-label_mapping_df.to_csv(decoded_output_csv, index=False)
 
-model.save('plant_disease_detection_model-v1.h5')
+save_dir = "C:/Users/USER/Documents/models"
+os.makedirs(save_dir, exist_ok=True)
+model.save(os.path.join(save_dir, "plant_disease_detection_model.h5"))
+plt.show()

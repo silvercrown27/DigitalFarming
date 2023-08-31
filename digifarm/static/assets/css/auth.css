@@ -1,0 +1,85 @@
+#main_style{
+ display: flex;
+ justify-content: space-between;
+ height: 100vh;
+ align-items: center;
+}
+
+#login-form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#form-cont{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.buttons {
+	border-radius: 20px;
+	border: 1px solid #00ff22;
+	background-color: #00ff22;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+.button-left {
+	border-radius: 20px;
+	background-color: transparent;
+	border-color: #FFFFFF;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+.buttons:active {
+	transform: scale(0.95);
+}
+
+.buttons:focus {
+	outline: none;
+}
+
+.buttons.ghost {
+	background-color: transparent;
+	border-color: #FFFFFF;
+}
+
+#background-overlay {
+	background: #FF416C;
+	background:  rgb(23 124 5);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0 0;
+	color: #FFFFFF;
+    height: 100%;
+    width: 50%;
+  	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form_input{
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+    border-radius: 5px;
+}
