@@ -6,7 +6,7 @@ import numpy as np
 import keras
 from keras import layers
 import tensorflow as tf
-from custom_image_from_dataset import custom_image_dataset_from_dir_pdd
+from custom_functions import custom_image_dataset_for_pdd_model
 
 
 def convert_to_float(image, label):
@@ -35,8 +35,7 @@ train_image_path = "C:/Users/USER/Documents/datasets/plant disease recognition d
 test_data_path = "C:/Users/USER/Documents/datasets/plant disease recognition dataset/Train/Train/plants.csv"
 test_image_path = "C:/Users/USER/Documents/datasets/plant disease recognition dataset/Train/Train"
 
-train_, test_ = custom_image_dataset_from_dir_pdd(train_data_path, train_image_path, test_data_path, test_image_path)
-
+train_, test_, label_mapping_df = custom_image_dataset_for_pdd_model(train_data_path, train_image_path, test_data_path, test_image_path)
 
 train_ = (train_.map(convert_to_float).cache().prefetch(buffer_size=AUTOTUNE))
 test_ = (test_.map(convert_to_float).cache().prefetch(buffer_size=AUTOTUNE))
@@ -47,16 +46,22 @@ pretrained_base.trainable = False
 print("Beginning training of model...")
 model = keras.Sequential([
     pretrained_base,
+    layers.Conv2D(filters=64, kernel_size=3, activation='relu', padding='same', input_shape=[128, 128, 3]),
+    layers.MaxPool2D(),
+    
+    layers.Conv2D(filters=128, kernel_size=3, activation="relu", padding='same'),
+    layers.MaxPool2D(),
+
     layers.Flatten(),
-    layers.Dense(64, activation='relu'),
-    layers.Dense(384, activation='relu'),
-    layers.Dense(64, activation='relu'),
-    layers.Dense(1, activation='sigmoid'),
+    layers.Dense(units=64, activation="relu"),
+    layers.Dense(units=len(label_mapping_df), activation="softmax"),
 ])
-print("Done training of model...")
+
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['binary_accuracy'])
 
-history = model.fit(train_, validation_data=test_, epochs=5, verbose=2)
+history = model.fit(train_, validation_data=test_, epochs=10, verbose=2)
+print("Done training of model...")
+
 history_frame = pd.DataFrame(history.history)
 history_frame.loc[:, ['loss', 'val_loss']].plot()
 history_frame.loc[:, ['binary_accuracy', 'val_binary_accuracy']].plot()
