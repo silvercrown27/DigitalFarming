@@ -32,4 +32,3 @@ for class_name in class_names:
         print("Predicted class:", predicted_class)
         print("Confidence:", confidence)
         print("--------------------------------------")
-
