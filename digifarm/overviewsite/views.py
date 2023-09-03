@@ -2,9 +2,7 @@ import os
 
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
-from django.http import Http404
-from django.shortcuts import render, redirect
-from keras.src.utils import load_img, img_to_array
+from django.shortcuts import render
 
 
 def landing_page(request):
@@ -44,12 +42,11 @@ def predict_data(img):
     import numpy as np
     from keras.models import load_model
     from keras.applications.convnext import preprocess_input
-    from keras.preprocessing.image import load_img, img_to_array  # Corrected imports
-    from django.conf import settings
-    import os
+    from keras.preprocessing.image import load_img, img_to_array
 
-    class_labels = ['Healthy', 'Powdery', 'Rust']
-    model_path = os.path.join(settings.MEDIA_ROOT, "plant_disease_detection_model.h5")
+    class_labels = ['algal leaf in tea', 'anthracnose in tea', 'Apple Apple scab', 'Apple Black rot', 'Apple Cedar apple rust', 'Apple healthy', 'Bacterial leaf blight in rice leaf', 'bird eye spot in tea', 'Blight in corn Leaf', 'Blueberry healthy', 'brown blight in tea', 'Brown spot in rice leaf', 'cabbage looper', 'Cercospora leaf spot', 'Cherry (including sour) Powdery mildew', 'Cherry (including_sour) healthy', 'Common Rust in corn Leaf', 'Corn (maize) healthy', 'corn crop', 'Garlic', 'ginger', 'Grape Black rot', 'Grape Esca Black Measles', 'Grape healthy', 'Grape Leaf blight Isariopsis Leaf Spot', 'Gray Leaf Spot in corn Leaf', 'healthy tea leaf', 'Leaf smut in rice leaf', 'lemon canker', 'Nitrogen deficiency in plant', 'onion', 'Orange Haunglongbing Citrus greening', 'Peach healthy', 'Pepper bell Bacterial spot', 'Pepper bell healthy', 'potassium deficiency in plant', 'potato crop', 'Potato Early blight', 'Potato healthy', 'potato hollow heart', 'Potato Late blight', 'Raspberry healthy', 'red leaf spot in tea', 'Sogatella rice', 'Soybean healthy', 'Strawberry healthy', 'Strawberry Leaf scorch', 'Tomato Bacterial spot', 'tomato canker', 'Tomato Early blight', 'Tomato healthy', 'Tomato Late blight', 'Tomato Leaf Mold', 'Tomato Septoria leaf spot', 'Tomato Spider mites Two spotted spider mite', 'Tomato Target Spot', 'Tomato Tomato mosaic virus', 'Waterlogging in plant']
+
+    model_path = os.path.join(settings.MEDIA_ROOT, "pdd_model.h5")
     loaded_model = load_model(model_path)
 
     def preprocess_image(img):
@@ -60,7 +57,6 @@ def predict_data(img):
         return img_array
 
     test_image_path = img
-    input_size = (128, 128)
 
     preprocessed_image = preprocess_image(test_image_path)
 
