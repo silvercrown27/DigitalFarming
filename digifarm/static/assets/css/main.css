@@ -1,7 +1,7 @@
 :root {
   --primary-color: #00ff22;
-  --secondary-color: #34AD54;
-  --ligh-colort: #FFFFFF;
+  --secondary-color: #00B75B;
+  --light-color: cornsilk;
   --dark-color: #091E3E;
   --green-color: #366041;
   --white-color: #fff;
@@ -19,6 +19,10 @@ figure, header, nav, section, article, aside, footer, figcaption {
   padding: 0;
   border: 0;
   outline: 0;
+}
+
+.services1 a, h4{
+    color: var(--secondary-color);
 }
 
 /* clear fix */
@@ -110,7 +114,7 @@ p {
   font-size: 15px;
   line-height: 30px;
   font-weight: 300;
-  color: #afafaf;
+  color: var(--dark-color);
 }
 
 img {
@@ -190,7 +194,7 @@ body {
 .white-button a {
   display: inline-block !important;
   padding: 10px 20px !important;
-  color: #4b8ef1 !important;
+  color: var(--secondary-color) !important;
   text-transform: capitalize;
   font-size: 15px;
   background-color: #fff;
@@ -721,7 +725,7 @@ header
   }
   .header-area .main-nav .nav li {
     width: 100%;
-    background: #fff;
+    background: #f7f7f7;
     border-bottom: 1px solid #e7e7e7;
     padding-left: 0px !important;
     padding-right: 0px !important;
@@ -774,6 +778,7 @@ header
 @media (min-width: 767px) {
   .header-area .main-nav .nav {
     display: flex !important;
+    flex-direction: row;
   }
 }
 
@@ -927,7 +932,6 @@ Services Style
 }
 .services {
   padding-top: 100px;
-  position: relative;
 }
 
 .services  .section-heading p {
@@ -943,7 +947,6 @@ Services Style
 
 .services:after {
   content: '';
-  background-image: url(../images/services-left-dec.png);
   background-repeat: no-repeat;
   position: absolute;
   left: 0;
@@ -955,7 +958,8 @@ Services Style
 
 .services:before {
   content: '';
-  background-image: url(../images/services-right-dec.png);
+  background-image: url(../images/background.png);
+
   background-repeat: no-repeat;
   position: absolute;
   right: 0;
@@ -986,9 +990,11 @@ Services Style
 }
 
 .service-item .icon {
+  color: var(--secondary-color);
   margin-left: 0px;
   margin-bottom: 30px;
   background-repeat: no-repeat;
+  font-size: 32px;
   width: 50px;
   height: 50px;
   transition: all .3s;
@@ -1009,46 +1015,13 @@ Services Style
 
 .service-item:hover h4,
 .service-item:hover p,
+.service-item:hover .icon,
 .service-item:hover .text-button a {
   color: #fff;
 }
 
-.first-service .icon {
-  background-image: url(../images/service-icon-01.png);
-}
-
-.first-service:hover .icon {
-  background-image: url(../images/service-icon-hover-01.png);
-}
-
-.second-service .icon {
-  background-image: url(../images/service-icon-02.png);
-}
-
-.second-service:hover .icon {
-  background-image: url(../images/service-icon-hover-02.png);
-}
-
-
-.third-service .icon {
-  background-image: url(../images/service-icon-03.png);
-}
-
-.third-service:hover .icon {
-  background-image: url(../images/service-icon-hover-03.png);
-}
-
-.fourth-service .icon {
-  background-image: url(../images/service-icon-04.png);
-}
-
-.fourth-service:hover .icon {
-  background-image: url(../images/service-icon-hover-04.png);
-}
-
 .service-item:hover {
-  background-image: url(../images/service-bg.jpg);
-  background-position: right top;
+  background-image: url(../images/background.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -1091,7 +1064,7 @@ About Us
   font-size: 20px;
   font-weight: 700;
   margin-top: 8px;
-  color: var(--white-color)!important;
+  color: var(--secondary-color)!important;
   transition: all .3s;
 }
 
@@ -1363,7 +1336,7 @@ PopUp
 
 .btn {
   padding: 10px 20px;
-  background: #4b8ef1;
+  background: #00B75B;
   color: #fff;
   transition: all .3s;
 }
@@ -1374,7 +1347,7 @@ PopUp
 }
 
 .btn:hover {
-  background: #E4E4E2;
+  background: #00e572;
 }
 
 .btn_red:hover {
@@ -1606,10 +1579,10 @@ responsive
   .main-banner .left-content h2 {
     z-index: 2;
     position: relative;
-    font-weight: 700;
-    line-height: 70px;
-    font-size: 50px;
-    margin-bottom: 20px;
+    font-weight: 650;
+    line-height: 63px;
+    font-size: 45px;
+    margin-bottom: 10px;
   }
 
   .main-banner .left-content p {
@@ -1625,7 +1598,7 @@ responsive
     display: none;
   } 
   .main-banner .left-content h2 {
-    color: #2a2a2a;
+    color: springgreen;
     margin-right: 0;
   }
   .main-banner .left-content p {
@@ -1633,7 +1606,7 @@ responsive
     margin-right: 0;
   }
   .main-banner .left-content .white-button a {
-    background-color: #4b8ef1;
+    background-color: var(--secondary-color);
     color: #fff !important;
   }
   form#contact {
@@ -1722,6 +1695,42 @@ responsive
   form#contact {
     padding: 45px;
   }
+}
+
+contactForm .label {
+    color: #000;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.info-wrap .dbox .icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.info-wrap .dbox {
+    width: 100%;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 25px;
+}
+
+info-wrap h3 {
+    color: #fff;
+    font-size: 1.75rem;
+    line-height: 1.5;
+    font-weight: 400;
+    font-family: "Poppins", Arial, sans-serif;
+}
+
+info-wrap .dbox .text {
+    width: calc(100% - 50px);
+}
+
+.pl-3, .px-3 {
+    padding-left: 1rem !important;
 }
 
 @media (max-width: 767px) {
