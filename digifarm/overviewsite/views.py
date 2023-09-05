@@ -12,11 +12,22 @@ def landing_page(request):
 def learn_page(request):
     return render(request, "learn.html")
 
+
+def services_page(request):
+    return render(request, "services.html")
+
+
+def about_us_page(request):
+    return render(request, "about_us.html")
+
+
 def login(request):
     return render(request, "login.html")
 
+
 def signup(request):
     return render(request, "signup.html")
+
 
 def dashboard(request):
     return render(request, "dashboard.html")
@@ -32,8 +43,8 @@ def submit(request):
         file_path = os.path.join(settings.MEDIA_ROOT, default_path, image.name)
         fs.save(file_path, image)
 
-        context = predict_data(file_path)  # Call the predict_data function with the full file path
-        data.update(context)  # Add the context items to the data dictionary
+        context = predict_data(file_path)
+        data.update(context)
 
     return render(request, 'dashboard.html', data)
 

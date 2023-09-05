@@ -50,30 +50,23 @@
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <div class="row align-items-center">
-                            <a href="index.html" class="logo col-md-3">
+                            <a href="{% url 'siteoverview:landing_page' %}" class="logo col-md-3">
                                 <img src="{% static 'assets/images/logo.png' %}" alt="Agricultural AI">
                             </a>
                             <!-- ***** Logo End ***** -->
                             <!-- ***** Menu Start ***** -->
-                            <ul class="nav col-md-5">
-                                <li><a href="#" class="active">Home</a></li>
-                                <li><a href="#" class="">Services</a></li>
-                                <li><a href="#" class="">Contact Us</a></li>
-                                <li><a href="#" class="">About</a></li>
+                            <ul class="nav col-md-5 justify-content-center">
+                                <li><a href="{% url 'siteoverview:landing_page' %}" class="active">Home</a></li>
+                                <li><a href="{% url 'siteoverview:services' %}" class="">Services</a></li>
+                                <li><a href="{% url 'siteoverview:about' %}" class="">About Us</a></li>
+                                <li><a href="{% url 'siteoverview:dashboard' %}" class="">Dashboard</a></li>
                                 <li></li>
                             </ul>
                             <ul class="nav col-md-4 d-flex flex-row-reverse">
-                                <li><a href="">Sign In</a></li>
-                                <li>
-                                    <div class="gradient-button">
-                                        <a href="#">Sign Up</a>
-                                    </div>
-                                </li>
+                                <li><a href="{% url 'siteoverview:signin' %}">Sign In</a></li>
+                                <li><div class="gradient-button"><a href="{% url 'siteoverview:signup' %}">Sign Up</a></div></li>
                             </ul>
-                        <a class='menu-trigger'>
-                            <span>Menu</span>
-                        </a>
-                        </div>
+                        <a class='menu-trigger'><span>Menu</span></a></div>
 
                         <!-- ***** Menu End ***** -->
                     </nav>
@@ -103,7 +96,7 @@
                                             <a href="#">Get Started <i class="fas fa-leaf"></i></a>
                                         </div>
                                         <div class="white-button scroll-to-section mt-3">
-                                            <a href="#">Learn More <i class="fas fa-info-circle"></i></a>
+                                            <a href="learn/">Learn More <i class="fas fa-info-circle"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -160,8 +153,7 @@
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <p>Join us in the journey to transform agriculture. Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                            <p>Join us in the journey to transform agriculture.</p>
                             <div class="gradient-button">
                                 <a href="#">Explore Our Features</a>
                             </div>
@@ -238,7 +230,7 @@
     </div>
 
 <section class="ftco-section">
-    <div class="w-100 mt-4">
+    <div class="w-100" style="margin-top:150px">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="wrapper">
@@ -330,7 +322,7 @@
 
 
     <footer id="newsletter">
-        <div class="container">
+        <div class="container w-90%">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <div class="section-heading">
@@ -359,14 +351,16 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="footer-widget">
-                        <h4>Contact Us</h4>
-                        <p>Nairobi, Kenya, 123452,</p>
-                        <p><a href="#">010-020-0340</a></p>
-                        <p><a href="#">agritech@gmail.com</a></p>
+                        <h4>About Our Company</h4>
+                        <div class="logo">
+                            <img src="{% static 'assets/images/white-logo.png' %}" style="width: 80%;" alt="">
+                        </div>
+                        <p>Welcome to AI Agriculture, where innovation meets cultivation. Our mission is to
+                            revolutionize farming through cutting-edge AI technology and expert insights.</p>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="footer-widget">
+                    <div class="footer-widget justify-content-center" style="padding-left:50px">
                         <h4>About Us</h4>
                         <ul>
                             <li><a href="#">Home</a></li>
@@ -379,6 +373,14 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="footer-widget">
+                        <h4>Contact Us</h4>
+                        <p>Nairobi, Kenya, 123452,</p>
+                        <p><a href="#">010-020-0340</a></p>
+                        <p><a href="#">agritech@gmail.com</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="footer-widget">
                         <h4>Quick Links</h4>
                         <ul>
                             <li><a href="#">Blog</a></li>
@@ -386,16 +388,6 @@
                             <li><a href="#">Terms of Service</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                         </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="footer-widget">
-                        <h4>About Our Company</h4>
-                        <div class="logo">
-                            <img src="{% static 'assets/images/white-logo.png' %}" style="width: 80%;" alt="">
-                        </div>
-                        <p>Welcome to AI Agriculture, where innovation meets cultivation. Our mission is to
-                            revolutionize farming through cutting-edge AI technology and expert insights.</p>
                     </div>
                 </div>
                 <div class="col-lg-12">

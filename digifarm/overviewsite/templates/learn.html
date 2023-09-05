@@ -50,30 +50,22 @@
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <div class="row align-items-center">
-                            <a href="index.html" class="logo col-md-3">
+                            <a href="{% url 'siteoverview:landing_page' %}" class="logo col-md-3">
                                 <img src="{% static 'assets/images/logo.png' %}" alt="Agricultural AI">
                             </a>
                             <!-- ***** Logo End ***** -->
                             <!-- ***** Menu Start ***** -->
-                            <ul class="nav col-md-5">
-                                <li><a href="#" class="active">Home</a></li>
-                                <li><a href="#" class="">Services</a></li>
-                                <li><a href="#" class="">Contact Us</a></li>
-                                <li><a href="#" class="">About</a></li>
+                            <ul class="nav col-md-5 justify-content-center">
+                                <li><a href="{% url 'siteoverview:landing_page' %}" class="active">Home</a></li>
+                                <li><a href="{% url 'siteoverview:services' %}" class="">Services</a></li>
+                                <li><a href="{% url 'siteoverview:about' %}" class="">About Us</a></li>
                                 <li></li>
                             </ul>
-                            <ul class="nav col-md-4 d-flex flex-r">
-                                <li><a href="#">Sign In</a></li>
-                                <li>
-                                    <div class="gradient-button d-flex justify-content-between">
-                                        <a id="modal_trigger" href="#">Sign Up</a>
-                                    </div>
-                                </li>
+                            <ul class="nav col-md-4 d-flex flex-row-reverse">
+                                <li><a href="{% url 'siteoverview:signin' %}">Sign In</a></li>
+                                <li><div class="gradient-button"><a href="{% url 'siteoverview:signup' %}">Sign Up</a></div></li>
                             </ul>
-                        <a class='menu-trigger'>
-                            <span>Menu</span>
-                        </a>
-                        </div>
+                        <a class='menu-trigger'><span>Menu</span></a></div>
 
                         <!-- ***** Menu End ***** -->
                     </nav>
@@ -83,100 +75,6 @@
     </header>
     <!-- ***** Header Area End ***** -->
 
-    <div class="main-banner wow fadeIn" id="top">
-        <div class="container">
-            <div class="col-lg-12">
-                <h2 style="color: cornsilk;">Get Started With AI Agriculture</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-6 align-self-center">
-                            <div class="left-content show-up header-text wow fadeInLeft" data-wow-duration="1s"
-                                data-wow-delay="1s">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h2>Embark on a Journey of Effortless Crop Monitoring</h2>
-                                    </div>
-                                    <div class="col-lg-12 ps-4">
-                                        <div class="white-button first-button scroll-to-section mt-3">
-                                            <a href="#">Get Started <i class="fas fa-leaf"></i></a>
-                                        </div>
-                                        <div class="white-button scroll-to-section mt-3">
-                                            <a href="#">Learn More <i class="fas fa-info-circle"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 justify-content-center">
-                            <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
-                                <img src="{% static 'assets/images/about-bg.png' %}" style="width: 100%" alt="Agriculture Banner">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="about" class="about-us section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 align-self-center">
-                    <div class="section-heading">
-                        <h4>About <em style="color: springgreen;">Our Mission</em> &amp; Expertise</h4>
-                        <img src="{% static 'assets/images/heading-line-dec.png' %}" alt="Heading Line">
-                        <p>Welcome to AI Agriculture, where innovation meets cultivation. Our mission is to
-                            revolutionize farming through cutting-edge AI technology and expert insights.</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="box-item">
-                                <h4><a href="#">AI-powered Analysis</a></h4>
-                                <p>Our AI algorithms analyze plant health from photos and videos, providing real-time
-                                    insights for farmers.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="box-item">
-                                <h4><a href="#">Farming Excellence</a></h4>
-                                <p>We empower farmers with knowledge on crop care, sustainable practices, and maximizing
-                                    yield.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="box-item">
-                                <h4><a href="#">Community Collaboration</a></h4>
-                                <p>Our platform fosters a vibrant community where farmers connect, share, and learn from
-                                    each other.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="box-item">
-                                <h4><a href="#">Continuous Innovation</a></h4>
-                                <p>We're dedicated to advancing agriculture through ongoing research and technological
-                                    advancements.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <p>Join us in the journey to transform agriculture. Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-                            <div class="gradient-button">
-                                <a href="#">Explore Our Features</a>
-                            </div>
-                            <span>*Unlock the Future of Farming</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="right-image">
-                        <img src="{% static 'assets/images/fav.png' %}" alt="About Right Image">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <footer id="newsletter">
         <div class="container">

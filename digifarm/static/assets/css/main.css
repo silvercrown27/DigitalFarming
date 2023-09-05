@@ -129,7 +129,7 @@ global styles
 */
 html,
 body {
-  background: var(--light-color);
+  background: #FFF5F3;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -538,7 +538,7 @@ header
   -o-transition: all 0.4s;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
-  background-color: #2a2a2a;
+  background-color: var(--light-color);
   display: block;
   position: absolute;
   width: 30px;
@@ -549,7 +549,7 @@ header
 .background-header .main-nav .menu-trigger span,
 .background-header .main-nav .menu-trigger span:before,
 .background-header .main-nav .menu-trigger span:after {
-  background-color: #2a2a2a;
+  background-color: var(--light-color);
 }
 
 .header-area .main-nav .menu-trigger span:before,
@@ -558,7 +558,7 @@ header
   -o-transition: all 0.4s;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
-  background-color: #2a2a2a;
+  background-color: var(--light-color);
   display: block;
   position: absolute;
   width: 30px;
@@ -1267,8 +1267,8 @@ footer #search button:hover {
 
 .footer-widget ul {
   display: inline;
-  max-width: 40%;
-  float: left;
+  max-width: 80%;
+  float: None;
   margin-right: 10%;
 }
 
