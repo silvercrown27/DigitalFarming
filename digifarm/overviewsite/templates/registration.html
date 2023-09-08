@@ -62,7 +62,6 @@
                                 <li><a href="{% url 'siteoverview:landing_page' %}" class="active">Home</a></li>
                                 <li><a href="{% url 'siteoverview:services' %}" class="">Services</a></li>
                                 <li><a href="{% url 'siteoverview:about' %}" class="">About Us</a></li>
-                                <li><a href="{% url 'siteoverview:dashboard' %}" class="">Dashboard</a></li>
                                 <li></li>
                             </ul>
                             <ul class="nav col-md-4 d-flex flex-row-reverse">
@@ -86,7 +85,7 @@
                 <div class="border-bottom py-4 px-5 mb-4">
                     <h2 class="mb-1">Enter Account Information</h2>
                 </div>
-                <form action="/login/" method="post">
+                <form action="{% url 'siteoverview:login' %}" method="post">
                     {% csrf_token %}
                     <!-- Account Information -->
                     <div>

@@ -1,16 +1,37 @@
 import os
 
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
+@login_required(login_url='/overview/')
 def home_page(request):
+    user = request.user
+
+    if not request.user.is_authenticated:
+        return redirect('/overview/')
+
     context = {}
     return render(request, 'dashboard.html', context)
 
 
+def dashboard(request):
+    user = request.user
+
+    if not request.user.is_authenticated:
+        return redirect('/overview/')
+
+    return render(request, "dashboard.html")
+
+
 def submit(request):
+    user = request.user
+
+    if not request.user.is_authenticated:
+        return redirect('/overview/')
+
     data = {}
     if request.method == "POST":
         image = request.FILES.get('img_upload')

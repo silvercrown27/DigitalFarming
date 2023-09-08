@@ -84,6 +84,6 @@ def login(request):
         except AgritectUsers.DoesNotExist:
             return JsonResponse({'error': 'User not found'}, status=404)
 
-    return render(request, 'signup.html')
+    return render(request, 'registration.html')
 
 
