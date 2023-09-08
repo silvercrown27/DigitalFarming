@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Agritect - AI Disease Detection</title>
+
+    {% load static %}
+    <link rel="icon" href="{% static 'assets/images/fav.png' %}" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animated.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+
+    <!--    javascript styling-->
+    <script src="{% static 'assets/js/scripts.js' %}"></script>
+
+</head>
+
+<body>
+
+    <!-- ***** Preloader Start ***** -->
+    <div id="js-preloader" class="js-preloader">
+        <div class="preloader-inner">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Preloader End ***** -->
+
+    <header class="header-area bg-dark header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <div class="row align-items-center">
+                            <a href="{% url 'siteoverview:landing_page' %}" class="logo col-md-3">
+                                <img src="{% static 'assets/images/logo.png' %}" alt="Agricultural AI">
+                            </a>
+                            <!-- ***** Logo End ***** -->
+                            <!-- ***** Menu Start ***** -->
+                            <ul class="nav col-md-5 justify-content-center">
+                                <li><a href="{% url 'siteoverview:landing_page' %}" class="active">Home</a></li>
+                                <li><a href="{% url 'siteoverview:services' %}" class="">Services</a></li>
+                                <li><a href="{% url 'siteoverview:about' %}" class="">About Us</a></li>
+                                <li><a href="{% url 'siteoverview:dashboard' %}" class="">Dashboard</a></li>
+                                <li></li>
+                            </ul>
+                            <ul class="nav col-md-4 d-flex flex-row-reverse">
+                                <li><a href="{% url 'siteoverview:signin' %}">Sign In</a></li>
+                                <li><div class="gradient-button"><a href="{% url 'siteoverview:signup' %}">Sign Up</a></div></li>
+                            </ul>
+                        <a class='menu-trigger'><span>Menu</span></a></div>
+
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+
+    <div class="registration position-relative bg-light p-5 mx-5">
+        <!--    sign In form start -->
+        <div class="signin">
+            <div id="selection_tab1">
+                <div class="border-bottom py-4 px-5 mb-4">
+                    <h2 class="mb-1">Enter Account Information</h2>
+                </div>
+                <form action="/login/" method="post">
+                    {% csrf_token %}
+                    <!-- Account Information -->
+                    <div>
+                        <label for="username">Username:</label><br>
+                        <input type="text" id="user-name" name="username" class="form-control border-white p-3"
+                            placeholder="Enter Your Username" required><br>
+                    </div>
+                    <div>
+                        <label for="password">Password:</label><br>
+                        <input type="password" id="pass-word" name="password" class="form-control border-white p-3"
+                            placeholder="Enter Your Password" required><br>
+                    </div>
+                    <!-- Submit Button -->
+                    <div style="text-align: center; margin-top: 20px;"><br>
+                        <button class="btn btn-primary w-50 py-3" type="submit">Sign In</button><br>
+                    </div>
+                    <br>
+                    <div style="text-align: center; margin-top: 20px;">
+                        <h6 class="text-light mb-4" style="text-align: center">Don't have an account</h6>
+                        <br>
+                        <button class="btn btn-primary w-50 py-3" type="button" onclick="nextPage(1)">Create an
+                            account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--    sign up form start -->
+        <div class="signup">
+            <form action="/register/" method="post">
+                {% csrf_token %}
+                <div id="selection_tab2" style="display: None;">
+                    <!-- Personal Information -->
+                    <h2>Personal Information</h2>
+                    <hr>
+                    <div>
+                        <label for="first-name">First Name</label><br>
+                        <input type="text" id="first-name" name="first_name" class="form-control border-white p-3"
+                            placeholder="First Name" required><br>
+                    </div>
+                    <div>
+                        <label for="last-name">Last Name</label><br>
+                        <input type="text" id="last-name" name="last_name" class="form-control border-white p-3"
+                            placeholder="Last Name" required><br>
+                    </div>
+                    <div>
+                        <label for="email">Email</label><br>
+                        <input type="email" id="email" name="email" class="form-control border-white p-3"
+                            placeholder="Your Email" required><br>
+                    </div>
+                    <div>
+                        <label for="phone">Phone Number</label><br>
+                        <input type="tel" id="phone" name="phone" class="form-control border-white p-3"
+                            placeholder="Your Phone" required><br>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="button" onclick="nextPage(2)"
+                            style="float: right;">Next</button>
+                    </div>
+                </div>
+
+                <div id="selection_tab3" style="display: none;">
+                    <!-- Address Information -->
+                    <h2>Address Information</h2>
+                    <hr>
+                    <div>
+                        <label for="address-line-1">Address Line 1</label><br>
+                        <input type="text" id="address-line-1" name="address1" class="form-control border-white p-3"
+                            placeholder="Address-1"><br>
+                    </div>
+                    <div>
+                        <label for="address-line-2">Address Line 2</label><br>
+                        <input type="text" id="address-line-2" name="address2" class="form-control border-white p-3"
+                            placeholder="Address-2"><br>
+                    </div>
+                    <div>
+                        <label for="city">City</label><br>
+                        <input type="text" id="city" name="city" class="form-control border-white p-3"
+                            placeholder="City" required><br>
+                    </div>
+                    <div>
+                        <label for="state">State</label><br>
+                        <input type="text" id="state" name="state" class="form-control border-white p-3"
+                            placeholder="State" required><br>
+                    </div>
+                    <div>
+                        <label for="zip">Zip Code</label><br>
+                        <input type="text" id="zip" name="zip_code" class="form-control border-white p-3"
+                            placeholder="Zip Code" required><br>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="button" onclick="previousPage(3)"
+                            style="float:left;">Back</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="button" onclick="nextPage(3)"
+                            style="float:right;">Next</button>
+                    </div>
+                </div>
+
+                <div id="selection_tab4" style="display: none;">
+                    <!-- Account Information -->
+                    <h2>Account Information</h2>
+                    <hr>
+                    <div>
+                        <label for="username">Username</label><br>
+                        <input type="text" id="username" name="username" class="form-control border-white p-3"
+                            placeholder="Type Your Username" required><br>
+                    </div>
+                    <div>
+                        <label for="password">Password</label><br>
+                        <input type="password" id="password" name="password" class="form-control border-white p-3"
+                            placeholder="Type Your Password" required><br>
+                    </div>
+                    <div>
+                        <span id="password_warning" style="display:none;color:red;">Passwords do not
+                            match</span><br>
+                        <label for="confirm_password">Confirm Password:</label>
+                        <input type="password" id="confirm_password" name="confirm_password"
+                            onkeyup="checkPassword()" class="form-control border-white p-3"
+                            placeholder="Confirm Your password" required><br>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="button" onclick="previousPage(4)"
+                            style="float:left">Back</button>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-primary w-50 py-3" style="height:55px" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--    sign In form end -->
+
+<footer id="newsletter">
+    <div class="container w-90%">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="section-heading">
+                    <h4>Stay Informed with AI Agriculture Updates</h4>
+                </div>
+            </div>
+            <div class="col-lg-6 offset-lg-3">
+                <form id="search" action="#" method="GET">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6">
+                            <fieldset>
+                                <input type="email" name="address" class="email" placeholder="Email Address..."
+                                    autocomplete="on" required>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-6 col-sm-6">
+                            <fieldset>
+                                <button type="submit" class="main-button">Subscribe Now <i
+                                        class="fa fa-angle-right"></i></button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="footer-widget">
+                    <h4>About Our Company</h4>
+                    <div class="logo">
+                        <img src="{% static 'assets/images/white-logo.png' %}" style="width: 80%;" alt="">
+                    </div>
+                    <p>Welcome to AI Agriculture, where innovation meets cultivation. Our mission is to
+                        revolutionize farming through cutting-edge AI technology and expert insights.</p>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="footer-widget justify-content-center" style="padding-left:50px">
+                    <h4>About Us</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Plant Analysis</a></li>
+                        <li><a href="#">Agricultural Insights</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="footer-widget">
+                    <h4>Contact Us</h4>
+                    <p>Nairobi, Kenya, 123452,</p>
+                    <p><a href="#">010-020-0340</a></p>
+                    <p><a href="#">agritech@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="footer-widget">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="copyright-text">
+                    <p>&copy; 2023 AI Agriculture. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- Template Javascript -->
+
+    <!-- Scripts -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+    <script src="{% static 'assets/js/animation.js' %}"></script>
+    <script src="{% static 'assets/js/imagesloaded.js' %}"></script>
+    <script src="{% static 'assets/js/popup.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+</body>
+
+</html>

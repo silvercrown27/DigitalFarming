@@ -129,7 +129,7 @@ global styles
 */
 html,
 body {
-  background: #FFF5F3;
+  background: var(--white-color);
   font-family: 'Roboto', sans-serif;
 }
 
@@ -2328,6 +2328,103 @@ Banner Style
   margin-bottom: 20px;
 }
 
+/* Styles for the search container */
+.search-container {
+    position: relative;
+    width: 300px;
+    margin: 20px auto;
+}
+
+/* Style for the input */
+#search-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Styles for the autocomplete results */
+.autocomplete-results {
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.autocomplete-results li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.autocomplete-results li:hover {
+    background-color: #f2f2f2;
+}
+
+.card{
+
+  background-color: #fff;
+  padding: 15px;
+  border:none;
+}
+
+.input-box{
+  position: relative;
+}
+
+.input-box i {
+  position: absolute;
+  right: 13px;
+  top:15px;
+  color:#ced4da;
+
+}
+
+.form-control{
+
+  height: 50px;
+  background-color:#eeeeee69;
+}
+
+.form-control:focus{
+  background-color: #eeeeee69;
+  box-shadow: none;
+  border-color: #eee;
+}
+
+
+/* Add hover styles for list items */
+.list {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+}
+
+.list:hover {
+    background-color: #f0f0f0; /* Change to the desired background color on hover */
+    cursor: pointer;
+}
+
+.border-bottom {
+    border-bottom: 2px solid #eee;
+}
+
+.list i {
+    font-size: 19px;
+    color: red;
+}
+
+.list small {
+    color: #dedddd;
+}
+
+
 /*
 ---------------------------------------------
 Services Style
@@ -2512,6 +2609,70 @@ About Us
   z-index: 0;
 }
 
+/*
+Registration
+*/
+
+.p-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.registration h2 {
+    color: var(--secondary-color);
+}
+.registration {
+    top: 130px;
+    margin-bottom: 150px;
+    border-radius: 20px;
+    min-height: 1000px;
+}
+
+.registration input{
+    border-radius: 8px;
+    margin: 5px;
+    text-align: center;
+}
+.registration button {
+    border-radius: 13px;
+}
+
+.registration label {
+    margin-left: 30px;
+}
+
+.signin, .signup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signup div{
+    width: 500px;
+}
+
+.zoom {
+  transition: transform .2s;
+  width: 30px;
+  height: 30px;
+}
+
+.zoom:hover {
+  transform: scale(1.5);
+}
+
+.media-item {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+.media-item.loaded {
+    opacity: 1;
+}
+
+/*
+<--Registration end -->
+*/
 
 /*
 ---------------------------------------------
