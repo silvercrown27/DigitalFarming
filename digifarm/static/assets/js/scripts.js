@@ -68,17 +68,17 @@ jQuery(document).ready(function($) {
 		});
 	});
 
-	$(window).on("load resize", function(event) { 
-		var windowWidth = $(window).width();  		 
+	$(window).on("load resize", function(event) {
+		var windowWidth = $(window).width();
 		if (windowWidth<1010) {
-			$('body').addClass('small-device'); 
+			$('body').addClass('small-device');
 		} else {
-			$('body').removeClass('small-device');  
-		} 
-		
+			$('body').removeClass('small-device');
+		}
+
 	});
-  
- 
+
+
 });
 
 function validatePage1() {
@@ -198,21 +198,18 @@ function isElementInViewport(el) {
       rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
-
-
-// Function to load more items when user scrolls
-function lazyLoad() {
-    var mediaItems = document.getElementsByClassName("media-item");
-
-    for (var i = 0; i < mediaItems.length; i++) {
-      if (isElementInViewport(mediaItems[i])) {
-        mediaItems[i].classList.add("loaded");
-      }
-    }
 }
 
-// Attach lazyLoad function to scroll event
-window.addEventListener("scroll", lazyLoad);
+document.addEventListener('DOMContentLoaded', function () {
+    var openChatButton = document.getElementById('openChat');
+    var chatBox = document.getElementById('chatBox');
 
-// Load initial items
-lazyLoad();
+    openChatButton.addEventListener('click', function () {
+        // Toggle the visibility of the chat box
+        if (chatBox.style.display === 'none') {
+            chatBox.style.display = 'block';
+        } else {
+            chatBox.style.display = 'none';
+        }
+    });
+});

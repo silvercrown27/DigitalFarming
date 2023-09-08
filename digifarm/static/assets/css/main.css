@@ -1732,13 +1732,11 @@ aside.left-panel:hover {
 .open aside.left-panel .menutoggle {
   background-color: #dc3545;
   color: #fff !important;
-  right: -20px;
   text-align: center;
 }
 
 /* Right panel */
 .right-panel {
-  background: #f1f2f7;
   margin-left: 280px;
   margin-top: 55px;
 }
@@ -1862,7 +1860,6 @@ header.fixed-top {
   line-height: 40px;
   width: 40px;
   display: block;
-  text-align: right;
 }
 
 .search-trigger {
@@ -2185,10 +2182,73 @@ header .form-inline .search-form.close {
   display: none;
 }
 
-#menuToggle2 {
-  padding-left: 25px;
+
+/**
+<--Search form start -->
+*/
+
+.search-box-container {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.search-box-container legend {
+    font-size: 36px;
+    color: var(--secondary-color);
+    font-weight: 800;
+    text-align: left;
+    margin-bottom: 8px;
+}
+.search-box-container button {
+    width: 70px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    position: absolute;
+    left: 65px;
+    height: 65px;
+    background: 0 0;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    align-items: center;
 }
 
+.suggestion-wrap span {
+    font-size: 14px;
+    font-family: helvetica,sans-serif;
+    display: inline-block;
+    background: rgba(0,0,0,.6);
+    padding: 0 15px;
+    line-height: 32px;
+    color: #fff;
+    border-radius: 16px;
+    margin-left: 20px;
+    margin-top: 15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.search-box-container input {
+    height: 60px;
+    width: 100%;
+    background: 0 0;
+    border: 0;
+    background: #fff;
+    display: block;
+    width: 100%;
+    padding: 10px 32px 10px 70px;
+    font-size: 18px;
+    color: #666;
+    border-radius: 34px;
+}
+
+/**
+<--Search form End -->
+*/
 /*
 ---------------------------------------------
 preloader
