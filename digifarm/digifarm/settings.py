@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'digifarm',
-    'overviewsite.apps.OverviewsiteConfig'
+    'overviewsite.apps.OverviewsiteConfig',
+    'usersite.apps.UsersiteConfig',
 ]
 
 MIDDLEWARE = [
