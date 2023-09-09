@@ -1361,7 +1361,7 @@ canvas {
 aside.left-panel {
   background: #fff;
   height: 100vh;
-  padding: 0;
+  padding-top: 15px;
   vertical-align: top;
   width: 280px;
   -webkit-box-shadow: 1px 0 20px rgba(0, 0, 0, 0.08);
@@ -1369,7 +1369,7 @@ aside.left-panel {
   position: fixed;
   left: 0;
   bottom: 0;
-  top: 55px;
+  top: 0px;
   z-index: 999;
 }
 
@@ -1738,7 +1738,7 @@ aside.left-panel:hover {
 /* Right panel */
 .right-panel {
   margin-left: 280px;
-  margin-top: 55px;
+  margin-top: 0px;
 }
 
 .right-panel .top-left {
@@ -1759,6 +1759,10 @@ aside.left-panel:hover {
 
 .right-panel .breadcrumbs .breadcrumbs-inner {
   background-color: #fff;
+}
+
+.hide-logo .logo {
+    display: none;
 }
 
 .right-panel .breadcrumbs .col-lg-8 .page-header {
@@ -1798,13 +1802,13 @@ aside.left-panel:hover {
   box-shadow: none;
   clear: both;
   padding: 0 30px;
-  height: 55px;
-  position: fixed;
+  height: 60px;
+  position: sticky;
   left: 280px;
   left: 0;
   right: 0;
   top: 0;
-  z-index: 999;
+  z-index: 995;
 }
 
 .right-panel .navbar-brand {
@@ -2246,6 +2250,10 @@ header .form-inline .search-form.close {
     border-radius: 34px;
 }
 
+.search-box-container input:focus {
+    border: var(--dark-color);
+    outline: none;
+}
 /**
 <--Search form End -->
 */
