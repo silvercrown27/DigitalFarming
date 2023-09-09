@@ -77,7 +77,7 @@ def login(request):
             customer = AgritectUsers.objects.get(user=user)
             if user is not None:
                 auth_login(request, user)
-                customer_url = reverse('usersite:dashboard')
+                customer_url = reverse('usersite:home')
                 return redirect(customer_url)
             else:
                 return JsonResponse({'error': 'Incorrect Email or Password'}, status=400)
