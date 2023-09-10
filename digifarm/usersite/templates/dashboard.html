@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
-    <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -14,64 +15,68 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
 </head>
+
 <body class="bg-light small-device">
     <aside id="left-panel" class="left-panel">
-    <nav class="navbar navbar-expand-sm navbar-default">
-        <div id="main-menu" class="main-menu collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="mb-3">
-                    <div class="menu-toggle-wrapper d-flex flex-row justify-content-center">
-                        <a id="menuToggle">
-                            <i class="menu-icon fa fa-bars" style="text-align:center;"></i>
-                        </a>
-                        <a href="" class="logo col-md-11">
-                            <img src="{% static 'assets/images/logo.png' %}" alt="Agricultural AI">
-                        </a>
-                    </div>
-                </li>
-                <li class="active">
-                    <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
-                </li>
-                <li>
-                    <a href=""><i class="menu-icon fa fa-home"></i>My Space</a>
-                </li>
-                <li class="menu-title">Learn More</li>
-                <li>
-                    <a href="plant-disease-details.html"><i class="menu-icon fa fa-leaf"></i>Plant Disease Details</a>
-                </li>
-                <li>
-                    <a href="plant-database.html"><i class="menu-icon fa fa-database"></i>Plant Database</a>
-                </li>
-                <li class="menu-title">Account</li>
-                <li>
-                    <a href="#" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-user"></i>User Profile</a>
-                </li>
-                <li>
-                    <a href="about-us.html"><i class="menu-icon fa fa-info-circle"></i>About Us</a>
-                </li>
-                <li>
-                    <a href="policies.html"><i class="menu-icon fa fa-book"></i>Policies and Agreements</a>
-                </li>
-                <li>
-                    <a href="billing-subscriptions.html"><i class="menu-icon fa fa-credit-card"></i>Billing and Subscriptions</a>
-                </li>
-                <li class="menu-title">Settings</li>
-                <li>
-                    <a href="settings.html"><i class="menu-icon fa fa-cog"></i>Settings</a>
-                </li>
-                <li class="menu-title">Help? FAQ</li>
-                <li>
-                    <a href="help-faq.html"><i class="menu-icon fa fa-question-circle"></i>Help? FAQ</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</aside>
+        <nav class="navbar navbar-expand-sm navbar-default">
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="mb-3">
+                        <div class="menu-toggle-wrapper d-flex flex-row justify-content-center">
+                            <a id="menuToggle">
+                                <i class="menu-icon fa fa-bars" style="text-align:center;"></i>
+                            </a>
+                            <a href="" class="logo col-md-11">
+                                <img src="{% static 'assets/images/logo.png' %}" alt="Agricultural AI">
+                            </a>
+                        </div>
+                    </li>
+                    <li class="active">
+                        <a href=""><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'usersite:myspace' %}"><i class="menu-icon fa fa-home"></i>My Space</a>
+                    </li>
+                    <li class="menu-title">Learn More</li>
+                    <li>
+                        <a href="plant-disease-details.html"><i class="menu-icon fa fa-leaf"></i>Plant Disease
+                            Details</a>
+                    </li>
+                    <li>
+                        <a href="plant-database.html"><i class="menu-icon fa fa-database"></i>Plant Database</a>
+                    </li>
+                    <li class="menu-title">Account</li>
+                    <li>
+                        <a href="#" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-user"></i>User
+                            Profile</a>
+                    </li>
+                    <li>
+                        <a href="about-us.html"><i class="menu-icon fa fa-info-circle"></i>About Us</a>
+                    </li>
+                    <li>
+                        <a href="policies.html"><i class="menu-icon fa fa-book"></i>Policies and Agreements</a>
+                    </li>
+                    <li>
+                        <a href="billing-subscriptions.html"><i class="menu-icon fa fa-credit-card"></i>Billing and
+                            Subscriptions</a>
+                    </li>
+                    <li class="menu-title">Settings</li>
+                    <li>
+                        <a href="settings.html"><i class="menu-icon fa fa-cog"></i>Settings</a>
+                    </li>
+                    <li class="menu-title">Help? FAQ</li>
+                    <li>
+                        <a href="help-faq.html"><i class="menu-icon fa fa-question-circle"></i>Help? FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </aside>
 
     <div id="right-panel" class="right-panel bg-light">
         <!-- Header-->
@@ -83,7 +88,8 @@
                 <div class="header-menu">
                     <div class="header-left">
                         <div class="dropdown for-notification">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger">1</span>
                             </button>
@@ -98,14 +104,17 @@
                     </div>
 
                     <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="{% static 'assets/images/profile.png' %}" alt="User">
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <img class="user-avatar rounded-circle" src="{% static 'assets/images/profile.png' %}"
+                                alt="User">
                         </a>
 
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa- user"></i>My Profile</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span class="count">13</span></a>
+                            <a class="nav-link" href="#"><i class="fa fa- user"></i>Notifications <span
+                                    class="count">13</span></a>
 
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
 
@@ -127,8 +136,11 @@
                             <div class="inner-form">
                                 <div class="input-field">
                                     <button class="btn-search" type="button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z">
+                                            </path>
                                         </svg>
                                     </button>
                                     <input id="search" type="text" placeholder="Search..." style="width: 100%;">
@@ -165,34 +177,34 @@
                             <div class="card-body"></div>
                         </div>
                     </div>
-                <script>
-                    var ctx = document.getElementById("plantAnalysisChart").getContext("2d");
+                    <script>
+                        var ctx = document.getElementById("plantAnalysisChart").getContext("2d");
 
-                    var data = {
-                        labels: ["Plants Analyzed", "Diseases Detected", "Healthy Plants", "User Uploads"],
-                        datasets: [{
-                            label: "Statistics",
-                            backgroundColor: ["#FF5733", "#FFC300", "#4CAF50", "#3498DB"],
-                            data: [10000, 2500, 7500, 15000]
-                        }]
-                    };
-
-                    var options = {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
+                        var data = {
+                            labels: ["Plants Analyzed", "Diseases Detected", "Healthy Plants", "User Uploads"],
+                            datasets: [{
+                                label: "Statistics",
+                                backgroundColor: ["#FF5733", "#FFC300", "#4CAF50", "#3498DB"],
+                                data: [10000, 2500, 7500, 15000]
                             }]
-                        }
-                    };
+                        };
 
-                    var chart = new Chart(ctx, {
-                        type: "bar",
-                        data: data,
-                        options: options
-                    });
-                </script>
+                        var options = {
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        };
+
+                        var chart = new Chart(ctx, {
+                            type: "bar",
+                            data: data,
+                            options: options
+                        });
+                    </script>
 
 
                     <div class="col-lg-5">
@@ -207,28 +219,36 @@
                                             <h4 class="por-title">Plants Analyzed</h4>
                                             <div class="por-txt">10,000 Plants (40%)</div>
                                             <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-flat-color-1" role="progressbar"
+                                                    style="width: 40%;" aria-valuenow="40" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                         <div class="progress-box progress-2">
                                             <h4 class="por-title">Diseases Detected</h4>
                                             <div class="por-txt">2,500 Diseases (24%)</div>
                                             <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-2" role="progressbar" style="width: 24%;" aria-valuenow="24" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-flat-color-2" role="progressbar"
+                                                    style="width: 24%;" aria-valuenow="24" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                         <div class="progress-box progress-2">
                                             <h4 class="por-title">Healthy Plants</h4>
                                             <div class="por-txt">7,500 Plants (60%)</div>
                                             <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-3" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-flat-color-3" role="progressbar"
+                                                    style="width: 60%;" aria-valuenow="60" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                         <div class="progress-box progress-2">
                                             <h4 class="por-title">User Uploads</h4>
                                             <div class="por-txt">15,000 Uploads (90%)</div>
                                             <div class="progress mb-2" style="height: 5px;">
-                                                <div class="progress-bar bg-flat-color-4" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar bg-flat-color-4" role="progressbar"
+                                                    style="width: 90%;" aria-valuenow="90" aria-valuemin="0"
+                                                    aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                     </div> <!-- /.card-body -->
@@ -241,16 +261,14 @@
 
 
                 <div class="row d-flex flex-row-reverse">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title box-title">Live Chat</h4>
-                                <div class="card-content">
-                                    <button id="openChat" class="btn btn-primary">
+                            <div class="card-body d-flex flex-row-reverse">
+                                <div class="card-content faq_btn">
+                                    <button id="openChat" class="btn btn-primary">s
                                         <i class="pe-7s-comment"></i> Help? FAQ
                                     </button>
                                     <div class="messenger-box" id="chatBox" style="display: none;">
-
                                     </div>
                                 </div>
                             </div>
@@ -261,15 +279,12 @@
             </div>
         </div>
 
+    </div>
+    <div class="col-lg-12 d-flex justify-content-center">
+        <div class="copyright-text">
+            <p>&copy; 2023 AI Agriculture. All Rights Reserved.</p>
         </div>
-        <div class="col-lg-12">
-            <div class="copyright-text justify-content-centers">
-                <p>&copy; 2023 AI Agriculture. All Rights Reserved.</p>
-            </div>
-        </div>
-
-
-    <!-- /#right-panel -->
+    </div>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
@@ -278,8 +293,8 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script src="{% static 'assets/js/scripts.js' %}"></script>
 
 </body>
+
 </html>

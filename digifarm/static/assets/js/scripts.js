@@ -1,9 +1,9 @@
 $.noConflict();
 
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
     "use strict";
 
-    [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function(el) {
+    [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function (el) {
         new SelectFx(el);
     });
 
@@ -13,20 +13,20 @@ jQuery(document).ready(function($) {
         property: 'max-height'
     });
 
-    $('.count').each(function() {
+    $('.count').each(function () {
         $(this).prop('Counter', 0).animate({
             Counter: $(this).text()
         }, {
             duration: 3000,
             easing: 'swing',
-            step: function(now) {
+            step: function (now) {
                 $(this).text(Math.ceil(now));
             }
         });
     });
 
     // Menu Trigger
-    $('#menuToggle').on('click', function(event) {
+    $('#menuToggle').on('click', function (event) {
         var windowWidth = $(window).width();
 
         // Toggle the 'open' class on body
@@ -46,14 +46,14 @@ jQuery(document).ready(function($) {
         }
     });
 
-    $(".menu-item-has-children.dropdown").each(function() {
-        $(this).on('click', function() {
+    $(".menu-item-has-children.dropdown").each(function () {
+        $(this).on('click', function () {
             var $temp_text = $(this).children('.dropdown-toggle').html();
             $(this).children('.sub-menu').prepend('<li class="subtitle">' + $temp_text + '</li>');
         });
     });
 
-    $(window).on("load resize", function(event) {
+    $(window).on("load resize", function (event) {
         var windowWidth = $(window).width();
         if (windowWidth < 1010) {
             $('body').addClass('small-device');
@@ -161,38 +161,69 @@ function validatePage(currentPage) {
 }
 
 function checkPassword() {
-  var password = document.getElementById("password");
-  var confirm_password = document.getElementById("confirm_password");
-  var password_warning = document.getElementById("password_warning");
+    var password = document.getElementById("password");
+    var confirm_password = document.getElementById("confirm_password");
+    var password_warning = document.getElementById("password_warning");
 
-  if (password.value != confirm_password.value) {
-    password_warning.style.display = "inline";
-  } else {
-    password_warning.style.display = "none";
-  }
+    if (password.value != confirm_password.value) {
+        password_warning.style.display = "inline";
+    } else {
+        password_warning.style.display = "none";
+    }
 }
 
 // Function to check if an element is in the viewport
 function isElementInViewport(el) {
     var rect = el.getBoundingClientRect();
     return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var openChatButton = document.getElementById('openChat');
-    var chatBox = document.getElementById('chatBox');
+(function ($) {
+    $(document).ready(function () {
+        var openChatButton = $('#openChat');
+        var chatBox = $('#chatBox');
 
-    openChatButton.addEventListener('click', function () {
-        // Toggle the visibility of the chat box
-        if (chatBox.style.display === 'none') {
-            chatBox.style.display = 'block';
+        openChatButton.on('click', function () {
+            if (chatBox.css('display') === 'none') {
+                chatBox.css('display', 'block');
+            } else {
+                chatBox.css('display', 'none');
+            }
+        });
+    });
+})(jQuery);
+
+
+(function ($) {
+    var btnUpload = $("#upload_file");
+    var btnOuter = $(".button_outer");
+
+    btnUpload.on("change", function (e) {
+        var ext = btnUpload.val().split('.').pop().toLowerCase();
+        if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) === -1) {
+            $(".error_msg").text("Not an Image...");
         } else {
-            chatBox.style.display = 'none';
+            $(".error_msg").text("");
+            btnOuter.addClass("file_uploading");
+            setTimeout(function () {
+                btnOuter.addClass("file_uploaded");
+            }, 3000);
+            var uploadedFile = URL.createObjectURL(e.target.files[0]);
+            setTimeout(function () {
+                $("#uploaded_view").append('<img src="' + uploadedFile + '" />').addClass("show");
+            }, 3500);
         }
     });
-});
+
+    $(".file_remove").on("click", function (e) {
+        $("#uploaded_view").removeClass("show");
+        $("#uploaded_view").find("img").remove();
+        btnOuter.removeClass("file_uploading");
+        btnOuter.removeClass("file_uploaded");
+    });
+})(jQuery);

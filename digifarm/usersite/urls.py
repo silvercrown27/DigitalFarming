@@ -7,7 +7,7 @@ app_name = "usersite"
 
 urlpatterns = [
     path('', views.home_page, name="home"),
-    path('myspace/', views.dashboard, name="myspace"),
+    path('myspace/', views.myspace_page, name="myspace"),
     path('submit/', views.submit, name="submit"),
 ]
 if settings.DEBUG:

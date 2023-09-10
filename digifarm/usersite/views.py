@@ -17,13 +17,13 @@ def home_page(request):
     return render(request, 'dashboard.html', context)
 
 
-def dashboard(request):
+def myspace_page(request):
     user = request.user
 
     if not request.user.is_authenticated:
         return redirect('/overview/')
 
-    return render(request, "dashboard.html")
+    return render(request, "mySpace.html")
 
 
 def submit(request):
