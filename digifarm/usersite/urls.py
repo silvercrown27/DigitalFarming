@@ -8,7 +8,8 @@ app_name = "usersite"
 urlpatterns = [
     path('', views.home_page, name="home"),
     path('myspace/', views.myspace_page, name="myspace"),
-    path('upload/', views.upload_image, name="upload_image"),
+    path('account/', views.myspace_page, name="user-account"),
+    path('upload/', views.upload, name="upload_image"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
