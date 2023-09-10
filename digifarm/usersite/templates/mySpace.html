@@ -152,26 +152,63 @@
                     </form>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-6 upload_container">
-                        <div class="panel">
-                            <div class="button_outer">
-                                <div class="btn_upload">
-                                    <input type="file" id="upload_file" name="">
-                                    Upload Image
+                <div class="row" style="min-height: 500px;">
+                    <div class="col-lg-6 upload_container h-100">
+                        <form action="{% url 'usersite:upload_image' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="panel">
+                                <div class="button_outer">
+                                    <div class="btn_upload">
+                                        <input type="file" id="upload_file" name="img_upload">
+                                        Upload Image
+                                    </div>
+                                    <div class="processing_bar"></div>
+                                    <div class="success_box"></div>
                                 </div>
-                                <div class="processing_bar"></div>
-                                <div class="success_box"></div>
+                            </div>
+                            <script>var csrfToken = "{{ csrf_token }}";</script>
+                            <div class="error_msg"></div>
+                            <div id="uploaded_file_view" class="uploaded_file_view" style="display: None;">
+                                <img id="uploaded_image" src="" alt="">
+                                <span class="file_remove">X</span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6 h-100">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Plant Disease Name</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Causes</h6>
+                                <p class="card-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Sed euismod, justo id feugiat tristique, tellus purus dapibus urna,
+                                    id cursus purus risus eu mi.
+                                </p>
+                                <h6 class="card-subtitle mb-2 text-muted">Cures</h6>
+                                <p class="card-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Sed euismod, justo id feugiat tristique, tellus purus dapibus urna,
+                                    id cursus purus risus eu mi.
+                                </p>
+                                <h6 class="card-subtitle mb-2 text-muted">Prevention Measures</h6>
+                                <p class="card-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Sed euismod, justo id feugiat tristique, tellus purus dapibus urna,
+                                    id cursus purus risus eu mi.
+                                </p>
                             </div>
                         </div>
-                        <div class="error_msg"></div>
-                        <div class="uploaded_file_view" id="uploaded_view">
-                            <span class="file_remove">X</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
 
                     </div>
+                </div>
+                <div class="row d-flex flex-row mr-3 ml-4 mt-5">
+                  <div class="recents-card">
+                    <div class="recents-content">
+                      <p class="date">Jan 1, 2022</p>
+                      <p class="title">Article Title Goes Here</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1482877346909-048fb6477632?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80" alt="article-cover" />
+                  </div>
                 </div>
             </div>
         </div>
@@ -187,6 +224,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="{% static 'assets/js/scripts.js' %}"></script>

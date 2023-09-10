@@ -23,7 +23,7 @@ class AgritectUsers(models.Model):
     )])
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now_add=True, editable=True)
-    allocated_space = models.IntegerField(default=50000, blank=False)
+    allocated_space = models.FloatField(default=5120.0, blank=False)
 
     REQUIRED_FIELDS = ['email', 'firstname', 'lastname', 'phone', 'address1', 'city', 'state', 'zip']
 

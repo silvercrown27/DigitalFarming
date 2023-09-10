@@ -198,32 +198,76 @@ function isElementInViewport(el) {
     });
 })(jQuery);
 
-
 (function ($) {
     var btnUpload = $("#upload_file");
     var btnOuter = $(".button_outer");
+    var uploadedImageContainer = $("#uploaded_file_view");
+    var errorMessageContainer = $(".error_msg");
 
     btnUpload.on("change", function (e) {
         var ext = btnUpload.val().split('.').pop().toLowerCase();
         if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) === -1) {
-            $(".error_msg").text("Not an Image...");
+            errorMessageContainer.text("Not an Image...");
         } else {
-            $(".error_msg").text("");
+            errorMessageContainer.text("");
             btnOuter.addClass("file_uploading");
-            setTimeout(function () {
-                btnOuter.addClass("file_uploaded");
-            }, 3000);
-            var uploadedFile = URL.createObjectURL(e.target.files[0]);
-            setTimeout(function () {
-                $("#uploaded_view").append('<img src="' + uploadedFile + '" />').addClass("show");
-            }, 3500);
+
+            var errorOccurred = false;
+
+            var formData = new FormData();
+            formData.append('img_upload', e.target.files[0]);
+
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRFToken": csrfToken
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/upload/",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // Check if the response contains the 'image_path' attribute
+                    if (response.hasOwnProperty('image_path')) {
+                        var imageUrl = response.image_url;
+
+                        var uploadedImage = $('<img>');
+                        uploadedImage.attr('src', imageUrl);
+
+                        uploadedImageContainer.html(uploadedImage).show();
+
+                        btnOuter.removeClass("file_uploading").addClass("file_uploaded");
+                    } else {
+                        console.error("Error: 'image_path' not found in the response.");
+                        errorMessageContainer.text("Error: Image not uploaded successfully.");
+                        btnOuter.removeClass("file_uploading");
+                        errorOccurred = true;
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error uploading image: " + error);
+
+                    errorOccurred = true;
+
+                    errorMessageContainer.text("Error uploading image. Please try again.");
+
+                    btnOuter.removeClass("file_uploading");
+                },
+                complete: function () {
+                    if (!errorOccurred) {
+                        btnOuter.addClass("file_uploaded");
+                    }
+                }
+            });
         }
     });
 
     $(".file_remove").on("click", function (e) {
-        $("#uploaded_view").removeClass("show");
-        $("#uploaded_view").find("img").remove();
-        btnOuter.removeClass("file_uploading");
+        uploadedImageContainer.hide().html('');
         btnOuter.removeClass("file_uploaded");
+        errorMessageContainer.text(""); // Clear any previous error messages
     });
 })(jQuery);

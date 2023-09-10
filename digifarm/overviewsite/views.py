@@ -1,12 +1,15 @@
 from django.db import IntegrityError
-from django.contrib.auth import authenticate, login as auth_login
+from django.db.models.signals import post_save
 from django.contrib.auth.models import User
-
+from django.contrib.auth import authenticate, login as auth_login
+from django.urls import reverse
+from django.dispatch import receiver
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse
 
 from .models import AgritectUsers
+from usersite.models import Drives, Folders
+
 
 def landing_page(request):
     return render(request, "index.html")
@@ -87,3 +90,18 @@ def login(request):
     return render(request, 'registration.html')
 
 
+@receiver(post_save, sender=User)
+def create_user_drive(sender, instance, created, **kwargs):
+    if created:
+        create_main_drive(instance.username)
+
+
+def create_main_drive(username):
+    name = "My Drive C"
+    user = User.objects.get(username=username)
+    capacity = 5120000
+
+    drive = Drives.objects.create(drive_name=name, drive_user=user, capacity=capacity)
+
+    fname = "MyDesktop"
+    Folders.objects.create(name=fname, path=f"/{name}/MyDesktop/", drive_id=drive)
