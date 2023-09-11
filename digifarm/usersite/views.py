@@ -1,8 +1,7 @@
-import json
 import os
 
 from django.contrib.auth import logout
-from django.db.models import Sum
+from django.db.models import Sum, DateTimeField, ExpressionWrapper, Q, F
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
@@ -25,13 +24,33 @@ def home_page(request):
     return render(request, 'dashboard.html', context)
 
 
+from django.template.defaultfilters import date as date_filter
+
+
 def myspace_page(request):
     user = request.user
 
     if not request.user.is_authenticated:
         return redirect('/overview/')
 
-    return render(request, "mySpace.html")
+    siteuser = AgritectUsers.objects.get(user=user)
+    plants_analyzed = PlantsAnalyzed.objects.filter(user=siteuser)
+
+    # Convert the date_detected field to the desired string format
+    plants_analyzed = [
+        {
+            'date_detected_str': date_filter(plant.date_detected, "M d, Y"),
+            'plant_name': plant.plant_name,
+            'image_path': plant.image_path.url,
+        }
+        for plant in plants_analyzed
+    ]
+
+    context = {
+        'plants_analyzed': plants_analyzed,
+    }
+
+    return render(request, "mySpace.html", context)
 
 
 def calculate_drive_size(drive_id):
@@ -118,7 +137,7 @@ def upload(request):
 
                     image_url = os.path.join(settings.MEDIA_URL, default_path, file.name)
                     image_urls.append(image_url)
-                    context = predict_data(file_path)
+                    context = predict_data(file_path, user)
                     data.update(context)
 
                 data['image_url'] = image_urls
@@ -129,13 +148,29 @@ def upload(request):
         return JsonResponse({'error': 'User not found'}, status=404)
 
 
-def predict_data(img):
+def predict_data(img, user):
     import numpy as np
     from keras.models import load_model
     from keras.applications.convnext import preprocess_input
     from keras.preprocessing.image import load_img, img_to_array
 
-    class_labels = ['algal leaf in tea', 'anthracnose in tea', 'Apple Apple scab', 'Apple Black rot', 'Apple Cedar apple rust', 'Apple healthy', 'Bacterial leaf blight in rice leaf', 'bird eye spot in tea', 'Blight in corn Leaf', 'Blueberry healthy', 'brown blight in tea', 'Brown spot in rice leaf', 'cabbage looper', 'Cercospora leaf spot', 'Cherry (including sour) Powdery mildew', 'Cherry (including_sour) healthy', 'Common Rust in corn Leaf', 'Corn (maize) healthy', 'corn crop', 'Garlic', 'ginger', 'Grape Black rot', 'Grape Esca Black Measles', 'Grape healthy', 'Grape Leaf blight Isariopsis Leaf Spot', 'Gray Leaf Spot in corn Leaf', 'healthy tea leaf', 'Leaf smut in rice leaf', 'lemon canker', 'Nitrogen deficiency in plant', 'onion', 'Orange Haunglongbing Citrus greening', 'Peach healthy', 'Pepper bell Bacterial spot', 'Pepper bell healthy', 'potassium deficiency in plant', 'potato crop', 'Potato Early blight', 'Potato healthy', 'potato hollow heart', 'Potato Late blight', 'Raspberry healthy', 'red leaf spot in tea', 'Sogatella rice', 'Soybean healthy', 'Strawberry healthy', 'Strawberry Leaf scorch', 'Tomato Bacterial spot', 'tomato canker', 'Tomato Early blight', 'Tomato healthy', 'Tomato Late blight', 'Tomato Leaf Mold', 'Tomato Septoria leaf spot', 'Tomato Spider mites Two spotted spider mite', 'Tomato Target Spot', 'Tomato Tomato mosaic virus', 'Waterlogging in plant']
+    class_labels = ['algal leaf in tea', 'anthracnose in tea', 'Apple Apple scab', 'Apple Black rot',
+                    'Apple Cedar apple rust', 'Apple healthy', 'Bacterial leaf blight in rice leaf',
+                    'bird eye spot in tea', 'Blight in corn Leaf', 'Blueberry healthy', 'brown blight in tea',
+                    'Brown spot in rice leaf', 'cabbage looper', 'Cercospora leaf spot',
+                    'Cherry (including sour) Powdery mildew', 'Cherry (including_sour) healthy',
+                    'Common Rust in corn Leaf', 'Corn (maize) healthy', 'corn crop', 'Garlic', 'ginger',
+                    'Grape Black rot', 'Grape Esca Black Measles', 'Grape healthy',
+                    'Grape Leaf blight Isariopsis Leaf Spot', 'Gray Leaf Spot in corn Leaf', 'healthy tea leaf',
+                    'Leaf smut in rice leaf', 'lemon canker', 'Nitrogen deficiency in plant', 'onion',
+                    'Orange Haunglongbing Citrus greening', 'Peach healthy', 'Pepper bell Bacterial spot',
+                    'Pepper bell healthy', 'potassium deficiency in plant', 'potato crop', 'Potato Early blight',
+                    'Potato healthy', 'potato hollow heart', 'Potato Late blight', 'Raspberry healthy',
+                    'red leaf spot in tea', 'Sogatella rice', 'Soybean healthy', 'Strawberry healthy',
+                    'Strawberry Leaf scorch', 'Tomato Bacterial spot', 'tomato canker', 'Tomato Early blight',
+                    'Tomato healthy', 'Tomato Late blight', 'Tomato Leaf Mold', 'Tomato Septoria leaf spot',
+                    'Tomato Spider mites Two spotted spider mite', 'Tomato Target Spot', 'Tomato Tomato mosaic virus',
+                    'Waterlogging in plant']
 
     model_path = os.path.join(settings.MEDIA_ROOT, "pdd_model.h5")
     loaded_model = load_model(model_path)
@@ -154,10 +189,23 @@ def predict_data(img):
     predictions = loaded_model.predict(preprocessed_image)
     predicted_class_index = np.argmax(predictions[0])
     predicted_class = class_labels[predicted_class_index]
+    print("Predicted class:", predicted_class)
+    status = "Healthy" if "healthy" in predicted_class.lower() else "sick"
+    disease_type = "None" if "healthy" in predicted_class.lower() else "Infection"
+    disease = PlantDiseases.objects.filter(Q(disease_name__iexact=predicted_class)).first()
+    PlantsAnalyzed.objects.create(user=AgritectUsers.objects.get(user=user), plant_name=disease.plantid.name,
+                                  status=status, disease_type=disease_type, image_path=img).save()
 
-    context = {'classification': predicted_class, "image_path": img.split("/")[-1]}
-
-    print("Predicted class index:", predicted_class_index)
+    context = {
+        'plant_name': disease.plantid.name,
+        'classification': predicted_class,
+        "image_path": img.split("/")[-1],
+        "disease_name": predicted_class,
+        "disease_description": disease.description,
+        "disease_causes": disease.causes,
+        "disease_prevention": disease.prevention_measures,
+        "disease_cures": disease.cures,
+    }
     print("Predicted class:", predicted_class)
 
     return context

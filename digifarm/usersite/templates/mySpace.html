@@ -177,67 +177,36 @@
                     <div class="col-lg-6 h-100">
                         <div class="card bg-light">
                             <div class="card-body">
-                                <h5 class="card-title">Plant Disease Name</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Causes</h6>
-                                <p class="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Sed euismod, justo id feugiat tristique, tellus purus dapibus urna,
-                                    id cursus purus risus eu mi.
+                                <h4 class="card-title">Plant Disease Name</h4>
+                                <h5 class="card-subtitle mb-2 text-muted">Description</h5>
+                                <p class="card-text" id="plant-description">
                                 </p>
-                                <h6 class="card-subtitle mb-2 text-muted">Cures</h6>
-                                <p class="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Sed euismod, justo id feugiat tristique, tellus purus dapibus urna,
-                                    id cursus purus risus eu mi.
+                                <h5 class="card-subtitle mb-2 text-muted">Causes</h5>
+                                <p class="card-text" id="disease-cause">
                                 </p>
-                                <h6 class="card-subtitle mb-2 text-muted">Prevention Measures</h6>
-                                <p class="card-text">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Sed euismod, justo id feugiat tristique, tellus purus dapibus urna,
-                                    id cursus purus risus eu mi.
+                                <h5 class="card-subtitle mb-2 text-muted">Cures</h5>
+                                <p class="card-text" id="disease-cures">
+                                </p>
+                                <h5 class="card-subtitle mb-2 text-muted">Prevention Measures</h5>
+                                <p class="card-text" id="disease-prevention">
                                 </p>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
-
-                <div class="row ml-4 mt-5">
+                <div class="row d-flex flex-column ml-4 mt-5">
                     <h2 class="recents-title">Recents</h2>
                     <div class="recents-list">
+                        {% for plant_analyzed in plants_analyzed %}
                         <div class="recents-card">
                             <div class="recents-content">
-                                <p class="date">Jan 1, 2022</p>
-                                <p class="title">Article Title Goes Here</p>
+                                <p class="date">{{ plant_analyzed.date_detected_str }}</p>
+                                <p class="title">{{ plant_analyzed.plant_name }}</p>
                             </div>
-                            <img src="https://images.unsplash.com/photo-1482877346909-048fb6477632?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80" alt="article-cover" />
+                            <img src="{{ plant_analyzed.image_path }}" alt="{{ plant_analyzed.plant_name }}" />
                         </div>
-
-                        <div class="recents-card">
-                            <div class="recents-content">
-                                <p class="date">Jan 1, 2022</p>
-                                <p class="title">Article Title Goes Here</p>
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1482877346909-048fb6477632?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80" alt="article-cover" />
-                        </div>
-
-                        <div class="recents-card">
-                            <div class="recents-content">
-                                <p class="date">Jan 1, 2022</p>
-                                <p class="title">Article Title Goes Here</p>
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1482877346909-048fb6477632?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80" alt="article-cover" />
-                        </div>
-
-                        <div class="recents-card">
-                            <div class="recents-content">
-                                <p class="date">Jan 1, 2022</p>
-                                <p class="title">Article Title Goes Here</p>
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1482877346909-048fb6477632?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80" alt="article-cover" />
-                        </div>
-
+                        {% endfor %}
                     </div>
                 </div>
 

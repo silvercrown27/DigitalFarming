@@ -3,6 +3,7 @@ import uuid
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator, MinValueValidator
 from django.db import models
+from django.utils import timezone
 
 from overviewsite.models import AgritectUsers
 
@@ -47,7 +48,7 @@ class PlantsAnalyzed(models.Model):
     disease_type = models.CharField(max_length=20, choices=DISEASE_TYPE_CHOICES)
 
     image_path = models.ImageField(upload_to='analyzed_images/')
-    date_detected = models.DateField()
+    date_detected = models.DateField(default=timezone.now)
 
     def __str__(self):
         return f"{self.user.firstname}'s Analysis of {self.plant_name} ({self.status})"

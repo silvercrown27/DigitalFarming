@@ -240,12 +240,24 @@ function isElementInViewport(el) {
                     processingBar.css('display', 'none');
                     if (response.hasOwnProperty('image_path')) {
                         var imageUrl = response.image_url;
+                        var diseaseName = response.disease_name;
+                        var diseaseDescription = response.disease_description;
+                        var diseaseCauses = response.disease_causes;
+                        var diseasePrevention = response.disease_prevention;
+                        var diseaseCures = response.disease_cures;
 
                         var uploadedImage = $('<img>');
                         uploadedImage.attr('src', imageUrl[0]);
                         uploadedImageContainer.html(uploadedImage).show();
                         uploadLabel.hide();
                         btnOuter.removeClass("file_uploading").addClass("file_uploaded");
+
+                        // Animate text insertion
+                        animateText("#plant-description", diseaseDescription);
+                        animateText("#disease-cause", diseaseCauses);
+                        animateText("#disease-cures", diseaseCures);
+                        animateText("#disease-prevention", diseasePrevention);
+                        animateText(".card-title", diseaseName);
                     } else {
                         console.error("Error: 'image_path' not found in the response.");
                         errorMessageContainer.text("Error: Image not uploaded successfully.");
@@ -274,5 +286,29 @@ function isElementInViewport(el) {
         uploadedImageContainer.hide().html('');
         btnOuter.removeClass("file_uploaded");
         errorMessageContainer.text("");
+        // Reset disease information in HTML elements
+        resetText("#plant-description");
+        resetText("#disease-cause");
+        resetText("#disease-cures");
+        resetText("#disease-prevention");
+        resetText(".card-title");
     });
+
+    function animateText(elementSelector, text) {
+        var element = $(elementSelector);
+        element.text(""); // Clear existing text
+        var index = 0;
+        var interval = setInterval(function () {
+            element.text(element.text() + text.charAt(index));
+            index++;
+            if (index === text.length) {
+                clearInterval(interval);
+            }
+        }, 50); // Adjust the interval for the desired speed
+    }
+
+    function resetText(elementSelector) {
+        var element = $(elementSelector);
+        element.text(""); // Clear the text
+    }
 })(jQuery);
