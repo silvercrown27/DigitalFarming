@@ -18,6 +18,7 @@ class PlantDatabase(models.Model):
 class PlantDiseases(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     disease_name = models.CharField(max_length=255)
+    description = models.TextField()
     plantid = models.ForeignKey(PlantDatabase, on_delete=models.CASCADE)
     causes = models.TextField()
     prevention_measures = models.TextField()
@@ -29,7 +30,7 @@ class PlantDiseases(models.Model):
 
 class PlantsAnalyzed(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-    user = models.OneToOneField(AgritectUsers, on_delete=models.CASCADE)
+    user = models.ForeignKey(AgritectUsers, on_delete=models.CASCADE)
     plant_name = models.CharField(max_length=255)
     STATUS_CHOICES = (
         ('Healthy', 'Healthy'),
@@ -37,11 +38,30 @@ class PlantsAnalyzed(models.Model):
     )
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
     disease_name = models.CharField(max_length=255)
+
+    DISEASE_TYPE_CHOICES = (
+        ('None', 'None'),
+        ('Deficiency', 'Deficiency'),
+        ('Illness/Infection', 'Illness/Infection'),
+    )
+    disease_type = models.CharField(max_length=20, choices=DISEASE_TYPE_CHOICES)
+
     image_path = models.ImageField(upload_to='analyzed_images/')
     date_detected = models.DateField()
 
     def __str__(self):
         return f"{self.user.firstname}'s Analysis of {self.plant_name} ({self.status})"
+
+
+class Deficiency(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    nutrient_name = models.CharField(max_length=255, help_text="Name of the nutrient causing deficiency")
+    symptoms = models.TextField(help_text="Symptoms of the deficiency")
+    recommended_actions = models.TextField(help_text="Recommended actions to address the deficiency")
+    image_path = models.ImageField(upload_to='deficiency_images/', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.plant_name} Nutrient Deficiency: {self.nutrient_name}"
 
 
 class Drives(models.Model):

@@ -198,11 +198,15 @@ function isElementInViewport(el) {
     });
 })(jQuery);
 
+
 (function ($) {
     var btnUpload = $("#upload_file");
     var btnOuter = $(".button_outer");
     var uploadedImageContainer = $("#uploaded_file_view");
     var errorMessageContainer = $(".error_msg");
+    var successBox = $(".success_box");
+    var processingBar = $(".processing_bar");
+    var uploadLabel = $("#upload_label");
 
     btnUpload.on("change", function (e) {
         var ext = btnUpload.val().split('.').pop().toLowerCase();
@@ -229,16 +233,18 @@ function isElementInViewport(el) {
                 data: formData,
                 processData: false,
                 contentType: false,
+                beforeSend: function () {
+                    processingBar.css('display', 'block');
+                },
                 success: function (response) {
-                    // Check if the response contains the 'image_path' attribute
+                    processingBar.css('display', 'none');
                     if (response.hasOwnProperty('image_path')) {
                         var imageUrl = response.image_url;
 
                         var uploadedImage = $('<img>');
-                        uploadedImage.attr('src', imageUrl);
-
+                        uploadedImage.attr('src', imageUrl[0]);
                         uploadedImageContainer.html(uploadedImage).show();
-
+                        uploadLabel.hide();
                         btnOuter.removeClass("file_uploading").addClass("file_uploaded");
                     } else {
                         console.error("Error: 'image_path' not found in the response.");
@@ -248,12 +254,11 @@ function isElementInViewport(el) {
                     }
                 },
                 error: function (xhr, status, error) {
+                    processingBar.css('display', 'none');
+                    errorBox.text('Error uploading image.' + error);
                     console.error("Error uploading image: " + error);
-
                     errorOccurred = true;
-
                     errorMessageContainer.text("Error uploading image. Please try again.");
-
                     btnOuter.removeClass("file_uploading");
                 },
                 complete: function () {
@@ -268,6 +273,6 @@ function isElementInViewport(el) {
     $(".file_remove").on("click", function (e) {
         uploadedImageContainer.hide().html('');
         btnOuter.removeClass("file_uploaded");
-        errorMessageContainer.text(""); // Clear any previous error messages
+        errorMessageContainer.text("");
     });
 })(jQuery);

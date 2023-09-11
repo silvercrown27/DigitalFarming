@@ -97,7 +97,7 @@ def create_user_drive(sender, instance, created, **kwargs):
 
 
 def create_main_drive(username):
-    name = "My Drive C"
+    name = "Local Drive C"
     user = User.objects.get(username=username)
     capacity = 5120000
 

@@ -18,7 +18,7 @@
 
 </head>
 
-<body class="bg-light small-device">
+<body class="bg-light small-device" style="overflow-x: hidden;">
     <aside id="left-panel" class="left-panel">
         <nav class="navbar navbar-expand-sm navbar-default">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -75,7 +75,7 @@
         </nav>
     </aside>
 
-    <div id="right-panel" class="right-panel bg-light">
+    <div id="right-panel" class="right-panel bg-white">
         <!-- Header-->
         <header id="header" class="header">
             <div class="top-left">
@@ -123,11 +123,11 @@
             </div>
         </header>
 
-        <div class="content mt-3">
+        <div class="content mt-3 cp-t bg-white">
             <!-- Animated -->
             <div class="animated fadeIn">
                 <div class="row">
-                    <form class="search-box-container bg-light col-md-12" action="" method="post">
+                    <form class="search-box-container col-md-12" action="" method="post">
                         <fieldset>
                             <div class="inner-form">
                                 <div class="input-field">
@@ -139,7 +139,7 @@
                                             </path>
                                         </svg>
                                     </button>
-                                    <input id="search" type="text" placeholder="Search..." style="width: 100%;">
+                                    <input id="search" type="text" placeholder="Search..." class="bg-light" style="width: 100%;">
                                 </div>
                             </div>
                             <div class="suggestion-wrap">
@@ -152,15 +152,15 @@
                     </form>
                 </div>
 
-                <div class="row" style="min-height: 500px;">
-                    <div class="col-lg-6 upload_container h-100">
+                <div class="row ml-3 mr-3" style="min-height: 500px;">
+                    <div class="col-lg-6 upload_container h-100 card bg-light">
                         <form action="{% url 'usersite:upload_image' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="panel">
                                 <div class="button_outer">
                                     <div class="btn_upload">
-                                        <input type="file" id="upload_file" name="img_upload" multiple>
-                                        Upload Image
+                                        <input type="file" id="upload_file" name="img_upload">
+                                        <label for="upload_file" id="upload_label">Upload Image</label>
                                     </div>
                                     <div class="processing_bar"></div>
                                     <div class="success_box"></div>
@@ -175,7 +175,7 @@
                         </form>
                     </div>
                     <div class="col-lg-6 h-100">
-                        <div class="card">
+                        <div class="card bg-light">
                             <div class="card-body">
                                 <h5 class="card-title">Plant Disease Name</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">Causes</h6>
@@ -201,15 +201,46 @@
 
                     </div>
                 </div>
-                <div class="row d-flex flex-row mr-3 ml-4 mt-5">
-                  <div class="recents-card">
-                    <div class="recents-content">
-                      <p class="date">Jan 1, 2022</p>
-                      <p class="title">Article Title Goes Here</p>
+
+
+                <div class="row ml-4 mt-5">
+                    <h2 class="recents-title">Recents</h2>
+                    <div class="recents-list">
+                        <div class="recents-card">
+                            <div class="recents-content">
+                                <p class="date">Jan 1, 2022</p>
+                                <p class="title">Article Title Goes Here</p>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1482877346909-048fb6477632?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80" alt="article-cover" />
+                        </div>
+
+                        <div class="recents-card">
+                            <div class="recents-content">
+                                <p class="date">Jan 1, 2022</p>
+                                <p class="title">Article Title Goes Here</p>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1482877346909-048fb6477632?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80" alt="article-cover" />
+                        </div>
+
+                        <div class="recents-card">
+                            <div class="recents-content">
+                                <p class="date">Jan 1, 2022</p>
+                                <p class="title">Article Title Goes Here</p>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1482877346909-048fb6477632?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80" alt="article-cover" />
+                        </div>
+
+                        <div class="recents-card">
+                            <div class="recents-content">
+                                <p class="date">Jan 1, 2022</p>
+                                <p class="title">Article Title Goes Here</p>
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1482877346909-048fb6477632?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80" alt="article-cover" />
+                        </div>
+
                     </div>
-                    <img src="https://images.unsplash.com/photo-1482877346909-048fb6477632?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=958&q=80" alt="article-cover" />
-                  </div>
                 </div>
+
             </div>
         </div>
 

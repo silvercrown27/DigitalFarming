@@ -1,5 +1,6 @@
 import os
 
+from django.contrib.auth import logout
 from django.db.models import Sum
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -88,31 +89,6 @@ def remove_media_root(file_paths):
     return file_paths[len_mr + 1:]
 
 
-def upload_image(request):
-    user = request.user
-
-    if not request.user.is_authenticated:
-        return redirect('/overview/')
-
-    data = {}
-    if request.method == "POST":
-        image = request.FILES.get('img_upload')
-
-        default_path = ""
-        fs = FileSystemStorage()
-        file_path = os.path.join(settings.MEDIA_ROOT, default_path, image.name)
-        fs.save(file_path, image)
-
-        context = predict_data(file_path)
-        data.update(context)
-
-        # Construct the image URL starting from the media root
-        data['image_url'] = os.path.join(settings.MEDIA_URL, default_path, image.name)
-        print(data['image_url'])
-
-    return JsonResponse(data)
-
-
 def upload(request):
     user = request.user
 
@@ -123,22 +99,30 @@ def upload(request):
         customer = AgritectUsers.objects.get(user=user)
 
         if customer is not None:
+            data = {}
+            image_urls = []
             if request.method == 'POST':
-                file_paths = request.POST.getlist('file_paths[]')
-                files = request.FILES.getlist('files[]')
-                default_path = f"{customer.id}/My Desktop"
+                files = request.FILES.getlist('img_upload')
 
-                for i in range(len(file_paths)):
-                    print(file_paths[i])
-                    print(files[i])
+                if len(files) == 0:
+                    return JsonResponse({'error': 'No files uploaded'}, status=400)
+
+                default_path = f"{customer.id}/My Desktop"
 
                 fs = FileSystemStorage()
 
-                for i, file in enumerate(files):
-                    file_path = os.path.join(settings.MEDIA_ROOT, default_path, file_paths[i])
+                for file in files:
+                    file_path = os.path.join(settings.MEDIA_ROOT, default_path, file.name)
                     fs.save(file_path, file)
 
-                return redirect("usersite:myspace")
+                    image_url = os.path.join(settings.MEDIA_URL, default_path, file.name)
+                    image_urls.append(image_url)
+                    context = predict_data(file_path)
+                    data.update(context)
+
+                data['image_url'] = image_urls
+
+            return JsonResponse(data)
 
     except AgritectUsers.DoesNotExist:
         return JsonResponse({'error': 'User not found'}, status=404)
@@ -178,14 +162,9 @@ def predict_data(img):
     return context
 
 
-
-def signout(request, username):
-    AgritectUsers.objects.get(username=username)
-    if 'user_id' in request.session:
-        del request.session['user_id']
-        return redirect("/signin/")
-    else:
-        print("No session found")
+def logout_user(request):
+    logout(request)
+    return redirect('/overview/')
 
 
 def update_ac_details(request, username):
