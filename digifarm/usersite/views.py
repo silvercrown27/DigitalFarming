@@ -1,18 +1,24 @@
-import os
+import os, cv2, threading
 
-from django.contrib.auth import logout
-from django.db.models import Sum, DateTimeField, ExpressionWrapper, Q, F
-from django.conf import settings
-from django.contrib.auth.decorators import login_required
-from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.conf import settings
+from django.db.models import Sum, Q
+from django.contrib.auth import logout
+from django.views.decorators import gzip
+from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
+from django.contrib.auth.decorators import login_required
+from django.template.defaultfilters import date as date_filter
+from django.http import JsonResponse, HttpResponseRedirect, StreamingHttpResponse
 
 from overviewsite.models import AgritectUsers
 from .models import *
 
 
+#
+#  Basic Views For The App
+#  Start
+#
 @login_required(login_url='/overview/')
 def home_page(request):
     user = request.user
@@ -24,9 +30,6 @@ def home_page(request):
     return render(request, 'dashboard.html', context)
 
 
-from django.template.defaultfilters import date as date_filter
-
-
 def myspace_page(request):
     user = request.user
 
@@ -36,7 +39,6 @@ def myspace_page(request):
     siteuser = AgritectUsers.objects.get(user=user)
     plants_analyzed = PlantsAnalyzed.objects.filter(user=siteuser)
 
-    # Convert the date_detected field to the desired string format
     plants_analyzed = [
         {
             'date_detected_str': date_filter(plant.date_detected, "M d, Y"),
@@ -53,6 +55,95 @@ def myspace_page(request):
     return render(request, "mySpace.html", context)
 
 
+def update_ac_details(request, username):
+    if request.method == "POST":
+        firstname = request.POST.get('first_name')
+        lastname = request.POST.get('last_name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        address1 = request.POST.get('address1')
+        address2 = request.POST.get('address2')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        zip_code = request.POST.get('zip_code')
+
+        user = AgritectUsers.objects.get(username=username)
+
+        user.email = email
+        user.first_name = firstname
+        user.last_name = lastname
+        user.address1 = address1
+        user.address2 = address2
+        user.city = city
+        user.state = state
+        user.zip_code = zip_code
+        user.phone = phone
+        user.save()
+
+    return HttpResponseRedirect(reverse("usersite:myspace", ))
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('/overview/')
+#
+#  Basic Views For The App
+#  Start
+#
+
+
+#
+#  Getting Live Feed From The Camera
+#  Start
+#
+class VideoCamera(object):
+    def __init__(self):
+        self.video = cv2.VideoCapture()
+        (self.grabbed, self.frame) = self.video.read()
+        threading.Thread(target=self.update, args=()).start()
+
+    def __del__(self):
+        self.video.release()
+
+    def get_frame(self):
+        image = self.frame
+        _, img = cv2.imencode('.jpg', image)
+        return img.tobytes()
+
+    def update(self):
+        while True:
+            (self.grabbed, self.frame) = self.video.read()
+
+
+def retrieve_video(camera):
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: Image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+
+def live_feed(request):
+    user = request.user
+
+    if not request.user.is_authenticated:
+        return redirect('/overview/')
+    try:
+        cam = VideoCamera()
+        return StreamingHttpResponse(retrieve_video(cam), content_type="multipart/x-mixed-replace;boundary=frame")
+    except:
+        pass
+
+    return JsonResponse()
+#
+#  Getting Live Feed From The Camera
+#  End
+#
+
+
+#
+#  Uploading The Data To The Site Database
+#  Start
+#
 def calculate_drive_size(drive_id):
     total_size = Files.objects.filter(drive_id=drive_id).aggregate(Sum('file_size'))['file_size__sum']
     return total_size if total_size else 0
@@ -146,8 +237,16 @@ def upload(request):
 
     except AgritectUsers.DoesNotExist:
         return JsonResponse({'error': 'User not found'}, status=404)
+#
+#  Uploading The Data To The Site Database
+#  Start
+#
 
 
+#
+#  Analysis Of The Data
+#  Start
+#
 def predict_data(img, user):
     import numpy as np
     from keras.models import load_model
@@ -209,36 +308,7 @@ def predict_data(img, user):
     print("Predicted class:", predicted_class)
 
     return context
-
-
-def logout_user(request):
-    logout(request)
-    return redirect('/overview/')
-
-
-def update_ac_details(request, username):
-    if request.method == "POST":
-        firstname = request.POST.get('first_name')
-        lastname = request.POST.get('last_name')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
-        address1 = request.POST.get('address1')
-        address2 = request.POST.get('address2')
-        city = request.POST.get('city')
-        state = request.POST.get('state')
-        zip_code = request.POST.get('zip_code')
-
-        user = AgritectUsers.objects.get(username=username)
-
-        user.email = email
-        user.first_name = firstname
-        user.last_name = lastname
-        user.address1 = address1
-        user.address2 = address2
-        user.city = city
-        user.state = state
-        user.zip_code = zip_code
-        user.phone = phone
-        user.save()
-
-    return HttpResponseRedirect(reverse("usersite:myspace", ))
+#
+#  Analysis Of The Data
+#  Start
+#

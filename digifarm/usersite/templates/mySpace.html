@@ -154,12 +154,17 @@
 
                 <div class="row ml-3 mr-3" style="min-height: 500px;">
                     <div class="col-lg-6 upload_container h-100 card bg-light">
-                        <video id="my-video" class="video-js" controls preload="auto" width="640" height="360" data-setup='{}'>
-                            <source src="http://172.168.75.4/<stream_id>/playlist.m3u8" type="application/x-mpegURL">
-                        </video>
+                        <video id="camera-feed" class="video-js" controls preload="auto" width="640" height="360" data-setup='{}' autoplay></video>
                         <script>
-                            var player = videojs('my-video');
-                            player.play();
+                            const socket = new WebSocket('ws://your_server/ws/camera_stream/');
+                            const video = document.getElementById('camera-feed');
+
+                            socket.onmessage = (event) => {
+                                const frameData = event.data;
+                                const blob = new Blob([frameData], { type: 'image/jpeg' });
+                                const imageUrl = URL.createObjectURL(blob);
+                                video.src = imageUrl;
+                            };
                         </script>
                     </div>
                     <div class="col-lg-6 h-100">
