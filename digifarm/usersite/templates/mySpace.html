@@ -154,6 +154,25 @@
 
                 <div class="row ml-3 mr-3" style="min-height: 500px;">
                     <div class="col-lg-6 upload_container h-100 card bg-light">
+                        <video id="my-video" class="video-js" controls preload="auto" width="640" height="360" data-setup='{}'>
+                            <source src="http://172.168.75.4/<stream_id>/playlist.m3u8" type="application/x-mpegURL">
+                        </video>
+                        <script>
+                            var player = videojs('my-video');
+                            player.play();
+                        </script>
+                    </div>
+                    <div class="col-lg-6 h-100">
+                        <div class="card bg-light">
+                            <div class="card-body">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row ml-3 mr-3" style="min-height: 500px;">
+                    <div class="col-lg-6 upload_container h-100 card bg-light">
                         <form action="{% url 'usersite:upload_image' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="panel">
