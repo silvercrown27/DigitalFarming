@@ -96,44 +96,39 @@ def logout_user(request):
 #  Getting Live Feed From The Camera
 #  Start
 #
-class VideoCamera(object):
+# videostream/views.py
+class VideoCamera:
     def __init__(self):
-        self.video = cv2.VideoCapture()
-        (self.grabbed, self.frame) = self.video.read()
-        threading.Thread(target=self.update, args=()).start()
+        self.video = cv2.VideoCapture(0)  # Use the default camera (0) or specify your camera's index
 
     def __del__(self):
         self.video.release()
 
     def get_frame(self):
-        image = self.frame
-        _, img = cv2.imencode('.jpg', image)
-        return img.tobytes()
+        success, frame = self.video.read()
+        if not success:
+            return None
 
-    def update(self):
-        while True:
-            (self.grabbed, self.frame) = self.video.read()
+        # Flip the frame horizontally (mirror effect)
+        frame = cv2.flip(frame, 1)
+
+        ret, jpeg = cv2.imencode('.jpg', frame)
+        if not ret:
+            return None
+        return jpeg.tobytes()
 
 
-def retrieve_video(camera):
+def generate_frames():
+    camera = VideoCamera()
     while True:
         frame = camera.get_frame()
-        yield (b'--frame\r\n'
-               b'Content-Type: Image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+        if frame is not None:
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
-def live_feed(request):
-    user = request.user
-
-    if not request.user.is_authenticated:
-        return redirect('/overview/')
-    try:
-        cam = VideoCamera()
-        return StreamingHttpResponse(retrieve_video(cam), content_type="multipart/x-mixed-replace;boundary=frame")
-    except:
-        pass
-
-    return JsonResponse()
+def video_feed(request):
+    return StreamingHttpResponse(generate_frames(), content_type='multipart/x-mixed-replace; boundary=frame')
 #
 #  Getting Live Feed From The Camera
 #  End

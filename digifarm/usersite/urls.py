@@ -10,6 +10,7 @@ urlpatterns = [
     path('myspace/', views.myspace_page, name="myspace"),
     path('account/', views.myspace_page, name="user-account"),
     path('upload/', views.upload, name="upload_image"),
+    path('video_feed/', views.video_feed, name='video_feed'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
