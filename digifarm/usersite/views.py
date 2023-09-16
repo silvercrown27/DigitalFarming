@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.conf import settings
 from django.db.models import Sum, Q
 from django.contrib.auth import logout
-from django.views.decorators import gzip
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
@@ -99,7 +98,7 @@ def logout_user(request):
 # videostream/views.py
 class VideoCamera:
     def __init__(self):
-        self.video = cv2.VideoCapture(0)  # Use the default camera (0) or specify your camera's index
+        self.video = cv2.VideoCapture(1)  # Use the default camera (0) or specify your camera's index
 
     def __del__(self):
         self.video.release()

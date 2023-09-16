@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/agrtect-virtenv" />
+      <excludeFolder url="file://$MODULE_DIR$/agritect-venv" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.10 (DigitalFarming)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

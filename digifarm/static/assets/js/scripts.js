@@ -65,53 +65,23 @@ jQuery(document).ready(function ($) {
 
 
 function validatePage1() {
-    var first_name = document.getElementById('first-name').value.trim();
-    var last_name = document.getElementById('last-name').value.trim();
-    var email = document.getElementById('email').value.trim();
-    var phone = document.getElementById('phone').value.trim();
-
-    if (first_name === '' || last_name === '' || email === '' || phone === '') {
-        alert('Please fill in all fields on this page.');
-        return false;
-    }
-
-    return true;
+    // Validation logic for page 1
+    return true; // Return true if validation is successful, false otherwise
 }
 
 function validatePage2() {
-    var address1 = document.getElementById('address-line-1').value.trim();
-    var city = document.getElementById('city').value.trim();
-    var state = document.getElementById('state').value.trim();
-    var zip_code = document.getElementById('zip').value.trim();
-
-    if (address1 === '' || city === '' || state === '' || zip_code === '') {
-        alert('Please fill in all fields on this page.');
-        return false;
-    }
-
-    return true;
+    // Validation logic for page 2
+    return true; // Return true if validation is successful, false otherwise
 }
 
 function validatePage3() {
-    var username = document.getElementById('username').value.trim();
-    var password = document.getElementById('password').value.trim();
-    var confirm_password = document.getElementById('confirm_password').value.trim();
-
-    if (username === '' || password === '' || confirm_password === '') {
-        alert('Please fill in all fields on this page.');
-        return false;
-    }
-
-    if (password !== confirm_password) {
-        alert('Passwords do not match.');
-        return false;
-    }
-
-    return true;
+    // Validation logic for page 3
+    return true; // Return true if validation is successful, false otherwise
 }
 
 function validatePage4() {
-    return true;
+    // Validation logic for page 4
+    return true; // Return true if validation is successful, false otherwise
 }
 
 function submitForm() {
@@ -161,17 +131,16 @@ function validatePage(currentPage) {
 }
 
 function checkPassword() {
-    var password = document.getElementById("password");
-    var confirm_password = document.getElementById("confirm_password");
-    var password_warning = document.getElementById("password_warning");
+  var password = document.getElementById("password");
+  var confirm_password = document.getElementById("confirm_password");
+  var password_warning = document.getElementById("password_warning");
 
-    if (password.value != confirm_password.value) {
-        password_warning.style.display = "inline";
-    } else {
-        password_warning.style.display = "none";
-    }
+  if (password.value != confirm_password.value) {
+    password_warning.style.display = "inline";
+  } else {
+    password_warning.style.display = "none";
+  }
 }
-
 // Function to check if an element is in the viewport
 function isElementInViewport(el) {
     var rect = el.getBoundingClientRect();
