@@ -115,7 +115,7 @@
 
         <!--    sign up form start -->
         <div class="signup">
-            <form action="/register/" method="post">
+            <form action="{% url 'siteoverview:register' %}" method="post">
                 {% csrf_token %}
                 <div id="selection_tab2" style="display: None;">
                     <!-- Personal Information -->

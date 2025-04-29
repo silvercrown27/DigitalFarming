@@ -3,9 +3,11 @@ from django.contrib.auth.models import User
 from django.db import models
 import uuid
 
+def generate_uuid():
+    return str(uuid.uuid4().hex[:15]).upper()
 
 class AgritectUsers(models.Model):
-    id = models.CharField(max_length=15, primary_key=True, editable=False, unique=True)
+    id = models.CharField(max_length=15, primary_key=True, editable=False, unique=True, default=generate_uuid)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     firstname = models.CharField(max_length=100, verbose_name='firstname')
     lastname = models.CharField(max_length=100, verbose_name='lastname')
@@ -18,7 +20,7 @@ class AgritectUsers(models.Model):
     city = models.CharField(max_length=50, verbose_name='City')
     state = models.CharField(max_length=10, verbose_name='State')
     zip_code = models.CharField(max_length=10, verbose_name='zip', validators=[RegexValidator(
-        regex='^\d{5}(?:[-\s]\d{4})?$',
+        regex=r'^\d{5}(?:[-\s]\d{4})?$',
         message='Zip code must be in the format XXXXX or XXXXX-XXXX.'
     )])
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -26,11 +28,6 @@ class AgritectUsers(models.Model):
     allocated_space = models.FloatField(default=5120.0, blank=False)
 
     REQUIRED_FIELDS = ['email', 'firstname', 'lastname', 'phone', 'address1', 'city', 'state', 'zip']
-
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.id = str(uuid.uuid4().hex[:15]).upper()
-        super().save(*args, **kwargs)
 
     def get_full_name(self):
         return f'{self.firstname} {self.lastname}'

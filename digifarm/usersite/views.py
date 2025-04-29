@@ -98,7 +98,7 @@ def logout_user(request):
 # videostream/views.py
 class VideoCamera:
     def __init__(self):
-        self.video = cv2.VideoCapture(1)  # Use the default camera (0) or specify your camera's index
+        self.video = cv2.VideoCapture(0)  # Use the default camera (0) or specify your camera's index
 
     def __del__(self):
         self.video.release()
@@ -127,7 +127,8 @@ def generate_frames():
 
 
 def video_feed(request):
-    return StreamingHttpResponse(generate_frames(), content_type='multipart/x-mixed-replace; boundary=frame')
+    return
+    # return StreamingHttpResponse(generate_frames(), content_type='multipart/x-mixed-replace; boundary=frame')
 #
 #  Getting Live Feed From The Camera
 #  End
@@ -212,17 +213,18 @@ def upload(request):
                 if len(files) == 0:
                     return JsonResponse({'error': 'No files uploaded'}, status=400)
 
-                default_path = f"{customer.id}/My Desktop"
-
+                default_path = f"{customer.id}/My_Desktop"  # avoid space in folder name
                 fs = FileSystemStorage()
 
                 for file in files:
-                    file_path = os.path.join(settings.MEDIA_ROOT, default_path, file.name)
-                    fs.save(file_path, file)
+                    relative_path = os.path.join(default_path, file.name)
+                    fs.save(relative_path, file)
 
-                    image_url = os.path.join(settings.MEDIA_URL, default_path, file.name)
+                    absolute_path = os.path.join(settings.MEDIA_ROOT, relative_path)
+                    image_url = os.path.join(settings.MEDIA_URL, relative_path)
                     image_urls.append(image_url)
-                    context = predict_data(file_path, user)
+
+                    context = predict_data(absolute_path, user)
                     data.update(context)
 
                 data['image_url'] = image_urls
@@ -231,6 +233,7 @@ def upload(request):
 
     except AgritectUsers.DoesNotExist:
         return JsonResponse({'error': 'User not found'}, status=404)
+
 #
 #  Uploading The Data To The Site Database
 #  Start
