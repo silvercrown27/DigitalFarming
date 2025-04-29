@@ -42,7 +42,7 @@ def myspace_page(request):
         {
             'date_detected_str': date_filter(plant.date_detected, "M d, Y"),
             'plant_name': plant.plant_name,
-            'image_path': plant.image_path.url,
+            'image_path': plant.image_path.url.replace('/media/home/bradley/Documents/python/DigitalFarming/digifarm', '', 1),
         }
         for plant in plants_analyzed
     ]
@@ -98,7 +98,7 @@ def logout_user(request):
 # videostream/views.py
 class VideoCamera:
     def __init__(self):
-        self.video = cv2.VideoCapture(0)  # Use the default camera (0) or specify your camera's index
+        self.video = cv2.VideoCapture(2)  # Use the default camera (0) or specify your camera's index
 
     def __del__(self):
         self.video.release()
